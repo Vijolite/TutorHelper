@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorHelper", "TutorHelper\TutorHelper.csproj", "{C52D9962-7771-44ED-BDE7-1819BA347BE9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C52D9962-7771-44ED-BDE7-1819BA347BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52D9962-7771-44ED-BDE7-1819BA347BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52D9962-7771-44ED-BDE7-1819BA347BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52D9962-7771-44ED-BDE7-1819BA347BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56017F49-7DB3-4B3B-857C-3D3823001516}
+	EndGlobalSection
+EndGlobal
