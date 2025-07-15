@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorHelper", "TutorHelper\TutorHelper.csproj", "{C52D9962-7771-44ED-BDE7-1819BA347BE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorHelper_Tests", "TutorHelper_Tests\TutorHelper_Tests.csproj", "{048510D9-6AE9-4100-A690-FB23FE0AD32D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C52D9962-7771-44ED-BDE7-1819BA347BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52D9962-7771-44ED-BDE7-1819BA347BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C52D9962-7771-44ED-BDE7-1819BA347BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048510D9-6AE9-4100-A690-FB23FE0AD32D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048510D9-6AE9-4100-A690-FB23FE0AD32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048510D9-6AE9-4100-A690-FB23FE0AD32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048510D9-6AE9-4100-A690-FB23FE0AD32D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
