@@ -798,7 +798,7 @@ namespace TutorHelper
 
             string query = @"SELECT li.Id as Id, s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
                              '£' || li.Price || ' ' || li.UsualDay || ' ' || li.UsualTime as Comment, 
-                             DATE('now') as LessonDate, li.UsualTime as LessonTime, DATE('now') as InvoiceDate,
+                             strftime('%d-%m-%Y', DATE('now')) as LessonDate, li.UsualTime as LessonTime, strftime('%d-%m-%Y', DATE('now')) as InvoiceDate,
                              s.Name as StudentName, s.Parent as StudentParent, s.Email as StudentEmail, le.Name as LessonName, li.Price as Price
                              FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                              WHERE li.Actual=true
@@ -838,7 +838,8 @@ namespace TutorHelper
 
             string query = @"SELECT s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
                             '£' || li.Price || ' ' || li.UsualDay || ' ' || li.UsualTime as Comment, 
-                            r.LessonDate as LessonDate, r.LessonTime as LessonTime, r.InvoiceDate as InvoiceDate, strftime('%m-%d %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
+                            strftime('%d-%m-%Y', r.LessonDate) as LessonDate, r.LessonTime as LessonTime, strftime('%d-%m-%Y', r.InvoiceDate) as InvoiceDate, 
+                            strftime('%d-%m %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
                             FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                             INNER JOIN InvoiceRecords r ON li.Id = r.LinkId
                             WHERE strftime('%Y-%m', r.InvoiceRecordedDate) = strftime('%Y-%m', 'now')
@@ -878,7 +879,8 @@ namespace TutorHelper
             {
                 query = @"SELECT s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
                             '£' || li.Price || ' ' || li.UsualDay || ' ' || li.UsualTime as Comment, 
-                            r.LessonDate as LessonDate, r.LessonTime as LessonTime, r.InvoiceDate as InvoiceDate, strftime('%m-%d %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
+                            strftime('%d-%m-%Y', r.LessonDate) as LessonDate, r.LessonTime as LessonTime, strftime('%d-%m-%Y', r.InvoiceDate) as InvoiceDate, 
+                            strftime('%d-%m %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
                             FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                             INNER JOIN InvoiceRecords r ON li.Id = r.LinkId
                             WHERE (@StudentId = -1 OR s.Id = @StudentId)
@@ -896,7 +898,8 @@ namespace TutorHelper
 
                 query = @"SELECT s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
                             '£' || li.Price || ' ' || li.UsualDay || ' ' || li.UsualTime as Comment, 
-                            r.LessonDate as LessonDate, r.LessonTime as LessonTime, r.InvoiceDate as InvoiceDate, strftime('%m-%d %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
+                            strftime('%d-%m-%Y', r.LessonDate) as LessonDate, r.LessonTime as LessonTime, strftime('%d-%m-%Y', r.InvoiceDate) as InvoiceDate, 
+                            strftime('%d-%m %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
                             FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                             INNER JOIN InvoiceRecords r ON li.Id = r.LinkId
                             WHERE (@StudentId = -1 OR s.Id = @StudentId)
