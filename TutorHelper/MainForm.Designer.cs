@@ -52,6 +52,18 @@
             this.buttonSaveLessons = new System.Windows.Forms.Button();
             this.dataGridViewLessons = new System.Windows.Forms.DataGridView();
             this.tabPageAllInvoices = new System.Windows.Forms.TabPage();
+            this.radioButtonFromTo = new System.Windows.Forms.RadioButton();
+            this.radioButtonYearMonth = new System.Windows.Forms.RadioButton();
+            this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxMonth = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxYear = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxStudent = new System.Windows.Forms.ComboBox();
             this.dataGridViewAllInvoices = new System.Windows.Forms.DataGridView();
             this.tabControlTutorHelper.SuspendLayout();
             this.tabPageInvoices.SuspendLayout();
@@ -74,11 +86,10 @@
             this.tabControlTutorHelper.Controls.Add(this.tabPageStudents);
             this.tabControlTutorHelper.Controls.Add(this.tabPageLessons);
             this.tabControlTutorHelper.Controls.Add(this.tabPageAllInvoices);
-            this.tabControlTutorHelper.Location = new System.Drawing.Point(15, 8);
-            this.tabControlTutorHelper.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControlTutorHelper.Location = new System.Drawing.Point(21, 13);
             this.tabControlTutorHelper.Name = "tabControlTutorHelper";
             this.tabControlTutorHelper.SelectedIndex = 0;
-            this.tabControlTutorHelper.Size = new System.Drawing.Size(818, 461);
+            this.tabControlTutorHelper.Size = new System.Drawing.Size(1169, 768);
             this.tabControlTutorHelper.TabIndex = 3;
             this.tabControlTutorHelper.SelectedIndexChanged += new System.EventHandler(this.tabControlTutorHelper_SelectedIndexChanged);
             // 
@@ -88,10 +99,9 @@
             this.tabPageInvoices.Controls.Add(this.buttonCancelChangesInv);
             this.tabPageInvoices.Controls.Add(this.buttonSendInvoices);
             this.tabPageInvoices.Controls.Add(this.dataGridViewInvoices);
-            this.tabPageInvoices.Location = new System.Drawing.Point(4, 24);
-            this.tabPageInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageInvoices.Location = new System.Drawing.Point(4, 34);
             this.tabPageInvoices.Name = "tabPageInvoices";
-            this.tabPageInvoices.Size = new System.Drawing.Size(810, 433);
+            this.tabPageInvoices.Size = new System.Drawing.Size(1161, 730);
             this.tabPageInvoices.TabIndex = 4;
             this.tabPageInvoices.Text = "Invoices";
             this.tabPageInvoices.UseVisualStyleBackColor = true;
@@ -102,13 +112,12 @@
             this.dataGridViewInvoicesLastMonth.AllowUserToDeleteRows = false;
             this.dataGridViewInvoicesLastMonth.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridViewInvoicesLastMonth.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewInvoicesLastMonth.Location = new System.Drawing.Point(14, 294);
-            this.dataGridViewInvoicesLastMonth.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewInvoicesLastMonth.Location = new System.Drawing.Point(20, 490);
             this.dataGridViewInvoicesLastMonth.Name = "dataGridViewInvoicesLastMonth";
             this.dataGridViewInvoicesLastMonth.ReadOnly = true;
             this.dataGridViewInvoicesLastMonth.RowHeadersWidth = 62;
             this.dataGridViewInvoicesLastMonth.RowTemplate.Height = 33;
-            this.dataGridViewInvoicesLastMonth.Size = new System.Drawing.Size(780, 133);
+            this.dataGridViewInvoicesLastMonth.Size = new System.Drawing.Size(1114, 222);
             this.dataGridViewInvoicesLastMonth.TabIndex = 5;
             this.dataGridViewInvoicesLastMonth.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewInvoicesLastMonth_DataBindingComplete);
             // 
@@ -120,10 +129,9 @@
             this.buttonCancelChangesInv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelChangesInv.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonCancelChangesInv.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancelChangesInv.Location = new System.Drawing.Point(664, 13);
-            this.buttonCancelChangesInv.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCancelChangesInv.Location = new System.Drawing.Point(949, 22);
             this.buttonCancelChangesInv.Name = "buttonCancelChangesInv";
-            this.buttonCancelChangesInv.Size = new System.Drawing.Size(130, 30);
+            this.buttonCancelChangesInv.Size = new System.Drawing.Size(186, 50);
             this.buttonCancelChangesInv.TabIndex = 4;
             this.buttonCancelChangesInv.Text = "Clean changes";
             this.buttonCancelChangesInv.UseVisualStyleBackColor = false;
@@ -137,10 +145,9 @@
             this.buttonSendInvoices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSendInvoices.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonSendInvoices.ForeColor = System.Drawing.Color.Black;
-            this.buttonSendInvoices.Location = new System.Drawing.Point(521, 13);
-            this.buttonSendInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSendInvoices.Location = new System.Drawing.Point(744, 22);
             this.buttonSendInvoices.Name = "buttonSendInvoices";
-            this.buttonSendInvoices.Size = new System.Drawing.Size(130, 30);
+            this.buttonSendInvoices.Size = new System.Drawing.Size(186, 50);
             this.buttonSendInvoices.TabIndex = 3;
             this.buttonSendInvoices.Text = "Send Invoices";
             this.buttonSendInvoices.UseVisualStyleBackColor = false;
@@ -151,12 +158,11 @@
             this.dataGridViewInvoices.AllowUserToAddRows = false;
             this.dataGridViewInvoices.AllowUserToDeleteRows = false;
             this.dataGridViewInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewInvoices.Location = new System.Drawing.Point(14, 61);
-            this.dataGridViewInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewInvoices.Location = new System.Drawing.Point(20, 102);
             this.dataGridViewInvoices.Name = "dataGridViewInvoices";
             this.dataGridViewInvoices.RowHeadersWidth = 62;
             this.dataGridViewInvoices.RowTemplate.Height = 33;
-            this.dataGridViewInvoices.Size = new System.Drawing.Size(780, 218);
+            this.dataGridViewInvoices.Size = new System.Drawing.Size(1114, 363);
             this.dataGridViewInvoices.TabIndex = 1;
             this.dataGridViewInvoices.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewInvoices_DataBindingComplete);
             // 
@@ -168,11 +174,10 @@
             this.tabPageLink.Controls.Add(this.radioButtonShowAllLink);
             this.tabPageLink.Controls.Add(this.radioButtonShowActual);
             this.tabPageLink.Controls.Add(this.dataGridViewStudLessonLink);
-            this.tabPageLink.Location = new System.Drawing.Point(4, 24);
-            this.tabPageLink.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageLink.Location = new System.Drawing.Point(4, 34);
             this.tabPageLink.Name = "tabPageLink";
-            this.tabPageLink.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageLink.Size = new System.Drawing.Size(810, 433);
+            this.tabPageLink.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageLink.Size = new System.Drawing.Size(1161, 730);
             this.tabPageLink.TabIndex = 1;
             this.tabPageLink.Text = "StudentLessonLink";
             this.tabPageLink.UseVisualStyleBackColor = true;
@@ -185,10 +190,9 @@
             this.buttonCancelChangesLink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelChangesLink.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonCancelChangesLink.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancelChangesLink.Location = new System.Drawing.Point(666, 10);
-            this.buttonCancelChangesLink.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCancelChangesLink.Location = new System.Drawing.Point(951, 17);
             this.buttonCancelChangesLink.Name = "buttonCancelChangesLink";
-            this.buttonCancelChangesLink.Size = new System.Drawing.Size(130, 30);
+            this.buttonCancelChangesLink.Size = new System.Drawing.Size(186, 50);
             this.buttonCancelChangesLink.TabIndex = 10;
             this.buttonCancelChangesLink.Text = "Clean changes";
             this.buttonCancelChangesLink.UseVisualStyleBackColor = false;
@@ -202,10 +206,9 @@
             this.buttonSaveLink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveLink.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonSaveLink.ForeColor = System.Drawing.Color.Black;
-            this.buttonSaveLink.Location = new System.Drawing.Point(523, 10);
-            this.buttonSaveLink.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSaveLink.Location = new System.Drawing.Point(747, 17);
             this.buttonSaveLink.Name = "buttonSaveLink";
-            this.buttonSaveLink.Size = new System.Drawing.Size(130, 30);
+            this.buttonSaveLink.Size = new System.Drawing.Size(186, 50);
             this.buttonSaveLink.TabIndex = 9;
             this.buttonSaveLink.Text = "Save";
             this.buttonSaveLink.UseVisualStyleBackColor = false;
@@ -214,10 +217,9 @@
             // radioButtonShowHistorical
             // 
             this.radioButtonShowHistorical.AutoSize = true;
-            this.radioButtonShowHistorical.Location = new System.Drawing.Point(190, 10);
-            this.radioButtonShowHistorical.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonShowHistorical.Location = new System.Drawing.Point(271, 17);
             this.radioButtonShowHistorical.Name = "radioButtonShowHistorical";
-            this.radioButtonShowHistorical.Size = new System.Drawing.Size(107, 19);
+            this.radioButtonShowHistorical.Size = new System.Drawing.Size(159, 29);
             this.radioButtonShowHistorical.TabIndex = 8;
             this.radioButtonShowHistorical.TabStop = true;
             this.radioButtonShowHistorical.Text = "Show Historical";
@@ -227,10 +229,9 @@
             // radioButtonShowAllLink
             // 
             this.radioButtonShowAllLink.AutoSize = true;
-            this.radioButtonShowAllLink.Location = new System.Drawing.Point(16, 31);
-            this.radioButtonShowAllLink.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonShowAllLink.Location = new System.Drawing.Point(23, 52);
             this.radioButtonShowAllLink.Name = "radioButtonShowAllLink";
-            this.radioButtonShowAllLink.Size = new System.Drawing.Size(71, 19);
+            this.radioButtonShowAllLink.Size = new System.Drawing.Size(106, 29);
             this.radioButtonShowAllLink.TabIndex = 7;
             this.radioButtonShowAllLink.TabStop = true;
             this.radioButtonShowAllLink.Text = "Show All";
@@ -240,10 +241,9 @@
             // radioButtonShowActual
             // 
             this.radioButtonShowActual.AutoSize = true;
-            this.radioButtonShowActual.Location = new System.Drawing.Point(16, 10);
-            this.radioButtonShowActual.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonShowActual.Location = new System.Drawing.Point(23, 17);
             this.radioButtonShowActual.Name = "radioButtonShowActual";
-            this.radioButtonShowActual.Size = new System.Drawing.Size(119, 19);
+            this.radioButtonShowActual.Size = new System.Drawing.Size(177, 29);
             this.radioButtonShowActual.TabIndex = 6;
             this.radioButtonShowActual.TabStop = true;
             this.radioButtonShowActual.Text = "Show Actual Only";
@@ -254,12 +254,11 @@
             // 
             this.dataGridViewStudLessonLink.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewStudLessonLink.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStudLessonLink.Location = new System.Drawing.Point(16, 58);
-            this.dataGridViewStudLessonLink.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewStudLessonLink.Location = new System.Drawing.Point(23, 97);
             this.dataGridViewStudLessonLink.Name = "dataGridViewStudLessonLink";
             this.dataGridViewStudLessonLink.RowHeadersWidth = 62;
             this.dataGridViewStudLessonLink.RowTemplate.Height = 33;
-            this.dataGridViewStudLessonLink.Size = new System.Drawing.Size(780, 364);
+            this.dataGridViewStudLessonLink.Size = new System.Drawing.Size(1114, 607);
             this.dataGridViewStudLessonLink.TabIndex = 1;
             this.dataGridViewStudLessonLink.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewStudLessonLink_DataBindingComplete);
             // 
@@ -271,11 +270,10 @@
             this.tabPageStudents.Controls.Add(this.buttonCancelStudentsChanges);
             this.tabPageStudents.Controls.Add(this.buttonSaveStudents);
             this.tabPageStudents.Controls.Add(this.dataGridViewStudents);
-            this.tabPageStudents.Location = new System.Drawing.Point(4, 24);
-            this.tabPageStudents.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageStudents.Location = new System.Drawing.Point(4, 34);
             this.tabPageStudents.Name = "tabPageStudents";
-            this.tabPageStudents.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageStudents.Size = new System.Drawing.Size(810, 433);
+            this.tabPageStudents.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStudents.Size = new System.Drawing.Size(1161, 730);
             this.tabPageStudents.TabIndex = 0;
             this.tabPageStudents.Text = "Students";
             this.tabPageStudents.Click += new System.EventHandler(this.tabPageStudents_Click);
@@ -283,10 +281,9 @@
             // radioButtonShowAll
             // 
             this.radioButtonShowAll.AutoSize = true;
-            this.radioButtonShowAll.Location = new System.Drawing.Point(16, 34);
-            this.radioButtonShowAll.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonShowAll.Location = new System.Drawing.Point(23, 57);
             this.radioButtonShowAll.Name = "radioButtonShowAll";
-            this.radioButtonShowAll.Size = new System.Drawing.Size(71, 19);
+            this.radioButtonShowAll.Size = new System.Drawing.Size(106, 29);
             this.radioButtonShowAll.TabIndex = 5;
             this.radioButtonShowAll.TabStop = true;
             this.radioButtonShowAll.Text = "Show All";
@@ -296,10 +293,9 @@
             // radioButtonShowCurrent
             // 
             this.radioButtonShowCurrent.AutoSize = true;
-            this.radioButtonShowCurrent.Location = new System.Drawing.Point(16, 13);
-            this.radioButtonShowCurrent.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonShowCurrent.Location = new System.Drawing.Point(23, 22);
             this.radioButtonShowCurrent.Name = "radioButtonShowCurrent";
-            this.radioButtonShowCurrent.Size = new System.Drawing.Size(125, 19);
+            this.radioButtonShowCurrent.Size = new System.Drawing.Size(186, 29);
             this.radioButtonShowCurrent.TabIndex = 4;
             this.radioButtonShowCurrent.TabStop = true;
             this.radioButtonShowCurrent.Text = "Show Current Only";
@@ -314,10 +310,9 @@
             this.buttonCancelStudentsChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelStudentsChanges.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonCancelStudentsChanges.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancelStudentsChanges.Location = new System.Drawing.Point(666, 13);
-            this.buttonCancelStudentsChanges.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCancelStudentsChanges.Location = new System.Drawing.Point(951, 22);
             this.buttonCancelStudentsChanges.Name = "buttonCancelStudentsChanges";
-            this.buttonCancelStudentsChanges.Size = new System.Drawing.Size(130, 30);
+            this.buttonCancelStudentsChanges.Size = new System.Drawing.Size(186, 50);
             this.buttonCancelStudentsChanges.TabIndex = 3;
             this.buttonCancelStudentsChanges.Text = "Clean changes";
             this.buttonCancelStudentsChanges.UseVisualStyleBackColor = false;
@@ -331,10 +326,9 @@
             this.buttonSaveStudents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveStudents.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonSaveStudents.ForeColor = System.Drawing.Color.Black;
-            this.buttonSaveStudents.Location = new System.Drawing.Point(523, 13);
-            this.buttonSaveStudents.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSaveStudents.Location = new System.Drawing.Point(747, 22);
             this.buttonSaveStudents.Name = "buttonSaveStudents";
-            this.buttonSaveStudents.Size = new System.Drawing.Size(130, 30);
+            this.buttonSaveStudents.Size = new System.Drawing.Size(186, 50);
             this.buttonSaveStudents.TabIndex = 2;
             this.buttonSaveStudents.Text = "Save";
             this.buttonSaveStudents.UseVisualStyleBackColor = false;
@@ -344,12 +338,11 @@
             // 
             this.dataGridViewStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStudents.Location = new System.Drawing.Point(16, 59);
-            this.dataGridViewStudents.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewStudents.Location = new System.Drawing.Point(23, 98);
             this.dataGridViewStudents.Name = "dataGridViewStudents";
             this.dataGridViewStudents.RowHeadersWidth = 62;
             this.dataGridViewStudents.RowTemplate.Height = 33;
-            this.dataGridViewStudents.Size = new System.Drawing.Size(780, 364);
+            this.dataGridViewStudents.Size = new System.Drawing.Size(1114, 607);
             this.dataGridViewStudents.TabIndex = 0;
             // 
             // tabPageLessons
@@ -357,11 +350,10 @@
             this.tabPageLessons.Controls.Add(this.buttonCancelLessonsChanges);
             this.tabPageLessons.Controls.Add(this.buttonSaveLessons);
             this.tabPageLessons.Controls.Add(this.dataGridViewLessons);
-            this.tabPageLessons.Location = new System.Drawing.Point(4, 24);
-            this.tabPageLessons.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageLessons.Location = new System.Drawing.Point(4, 34);
             this.tabPageLessons.Name = "tabPageLessons";
-            this.tabPageLessons.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageLessons.Size = new System.Drawing.Size(810, 433);
+            this.tabPageLessons.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageLessons.Size = new System.Drawing.Size(1161, 730);
             this.tabPageLessons.TabIndex = 3;
             this.tabPageLessons.Text = "Lessons";
             this.tabPageLessons.UseVisualStyleBackColor = true;
@@ -374,10 +366,9 @@
             this.buttonCancelLessonsChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelLessonsChanges.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonCancelLessonsChanges.ForeColor = System.Drawing.Color.Black;
-            this.buttonCancelLessonsChanges.Location = new System.Drawing.Point(661, 11);
-            this.buttonCancelLessonsChanges.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCancelLessonsChanges.Location = new System.Drawing.Point(944, 18);
             this.buttonCancelLessonsChanges.Name = "buttonCancelLessonsChanges";
-            this.buttonCancelLessonsChanges.Size = new System.Drawing.Size(130, 30);
+            this.buttonCancelLessonsChanges.Size = new System.Drawing.Size(186, 50);
             this.buttonCancelLessonsChanges.TabIndex = 5;
             this.buttonCancelLessonsChanges.Text = "Clean changes";
             this.buttonCancelLessonsChanges.UseVisualStyleBackColor = false;
@@ -391,10 +382,9 @@
             this.buttonSaveLessons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveLessons.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonSaveLessons.ForeColor = System.Drawing.Color.Black;
-            this.buttonSaveLessons.Location = new System.Drawing.Point(518, 11);
-            this.buttonSaveLessons.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSaveLessons.Location = new System.Drawing.Point(740, 18);
             this.buttonSaveLessons.Name = "buttonSaveLessons";
-            this.buttonSaveLessons.Size = new System.Drawing.Size(130, 30);
+            this.buttonSaveLessons.Size = new System.Drawing.Size(186, 50);
             this.buttonSaveLessons.TabIndex = 4;
             this.buttonSaveLessons.Text = "Save";
             this.buttonSaveLessons.UseVisualStyleBackColor = false;
@@ -404,25 +394,147 @@
             // 
             this.dataGridViewLessons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewLessons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewLessons.Location = new System.Drawing.Point(15, 59);
-            this.dataGridViewLessons.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewLessons.Location = new System.Drawing.Point(21, 98);
             this.dataGridViewLessons.Name = "dataGridViewLessons";
             this.dataGridViewLessons.RowHeadersWidth = 62;
             this.dataGridViewLessons.RowTemplate.Height = 33;
-            this.dataGridViewLessons.Size = new System.Drawing.Size(780, 364);
+            this.dataGridViewLessons.Size = new System.Drawing.Size(1114, 607);
             this.dataGridViewLessons.TabIndex = 2;
             // 
             // tabPageAllInvoices
             // 
+            this.tabPageAllInvoices.Controls.Add(this.radioButtonFromTo);
+            this.tabPageAllInvoices.Controls.Add(this.radioButtonYearMonth);
+            this.tabPageAllInvoices.Controls.Add(this.dateTimePickerTo);
+            this.tabPageAllInvoices.Controls.Add(this.dateTimePickerFrom);
+            this.tabPageAllInvoices.Controls.Add(this.label5);
+            this.tabPageAllInvoices.Controls.Add(this.label4);
+            this.tabPageAllInvoices.Controls.Add(this.label3);
+            this.tabPageAllInvoices.Controls.Add(this.comboBoxMonth);
+            this.tabPageAllInvoices.Controls.Add(this.label2);
+            this.tabPageAllInvoices.Controls.Add(this.comboBoxYear);
+            this.tabPageAllInvoices.Controls.Add(this.label1);
+            this.tabPageAllInvoices.Controls.Add(this.comboBoxStudent);
             this.tabPageAllInvoices.Controls.Add(this.dataGridViewAllInvoices);
-            this.tabPageAllInvoices.Location = new System.Drawing.Point(4, 24);
-            this.tabPageAllInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageAllInvoices.Location = new System.Drawing.Point(4, 34);
             this.tabPageAllInvoices.Name = "tabPageAllInvoices";
-            this.tabPageAllInvoices.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAllInvoices.Size = new System.Drawing.Size(810, 433);
+            this.tabPageAllInvoices.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAllInvoices.Size = new System.Drawing.Size(1161, 730);
             this.tabPageAllInvoices.TabIndex = 5;
             this.tabPageAllInvoices.Text = "All Invoices";
             this.tabPageAllInvoices.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonFromTo
+            // 
+            this.radioButtonFromTo.AutoSize = true;
+            this.radioButtonFromTo.Location = new System.Drawing.Point(627, 86);
+            this.radioButtonFromTo.Name = "radioButtonFromTo";
+            this.radioButtonFromTo.Size = new System.Drawing.Size(21, 20);
+            this.radioButtonFromTo.TabIndex = 18;
+            this.radioButtonFromTo.TabStop = true;
+            this.radioButtonFromTo.UseVisualStyleBackColor = true;
+            this.radioButtonFromTo.CheckedChanged += new System.EventHandler(this.radioButtonFromTo_CheckedChanged);
+            // 
+            // radioButtonYearMonth
+            // 
+            this.radioButtonYearMonth.AutoSize = true;
+            this.radioButtonYearMonth.Location = new System.Drawing.Point(627, 31);
+            this.radioButtonYearMonth.Name = "radioButtonYearMonth";
+            this.radioButtonYearMonth.Size = new System.Drawing.Size(21, 20);
+            this.radioButtonYearMonth.TabIndex = 17;
+            this.radioButtonYearMonth.TabStop = true;
+            this.radioButtonYearMonth.UseVisualStyleBackColor = true;
+            this.radioButtonYearMonth.CheckedChanged += new System.EventHandler(this.radioButtonYearMonth_CheckedChanged);
+            // 
+            // dateTimePickerTo
+            // 
+            this.dateTimePickerTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerTo.Location = new System.Drawing.Point(1005, 79);
+            this.dateTimePickerTo.Name = "dateTimePickerTo";
+            this.dateTimePickerTo.Size = new System.Drawing.Size(135, 31);
+            this.dateTimePickerTo.TabIndex = 16;
+            this.dateTimePickerTo.ValueChanged += new System.EventHandler(this.dateTimePickerTo_ValueChanged);
+            // 
+            // dateTimePickerFrom
+            // 
+            this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(744, 79);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(134, 31);
+            this.dateTimePickerFrom.TabIndex = 15;
+            this.dateTimePickerFrom.ValueChanged += new System.EventHandler(this.dateTimePickerFrom_ValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(914, 79);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 25);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "To";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(670, 79);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 25);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "From";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(914, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 25);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Month";
+            // 
+            // comboBoxMonth
+            // 
+            this.comboBoxMonth.FormattingEnabled = true;
+            this.comboBoxMonth.Location = new System.Drawing.Point(1005, 21);
+            this.comboBoxMonth.Name = "comboBoxMonth";
+            this.comboBoxMonth.Size = new System.Drawing.Size(134, 33);
+            this.comboBoxMonth.TabIndex = 11;
+            this.comboBoxMonth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMonth_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(670, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 25);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Year";
+            // 
+            // comboBoxYear
+            // 
+            this.comboBoxYear.FormattingEnabled = true;
+            this.comboBoxYear.Location = new System.Drawing.Point(744, 21);
+            this.comboBoxYear.Name = "comboBoxYear";
+            this.comboBoxYear.Size = new System.Drawing.Size(134, 33);
+            this.comboBoxYear.TabIndex = 9;
+            this.comboBoxYear.SelectedIndexChanged += new System.EventHandler(this.comboBoxYear_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 25);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Student";
+            // 
+            // comboBoxStudent
+            // 
+            this.comboBoxStudent.FormattingEnabled = true;
+            this.comboBoxStudent.Location = new System.Drawing.Point(113, 26);
+            this.comboBoxStudent.Name = "comboBoxStudent";
+            this.comboBoxStudent.Size = new System.Drawing.Size(342, 33);
+            this.comboBoxStudent.TabIndex = 7;
+            this.comboBoxStudent.SelectedIndexChanged += new System.EventHandler(this.comboBoxStudent_SelectedIndexChanged);
             // 
             // dataGridViewAllInvoices
             // 
@@ -430,24 +542,22 @@
             this.dataGridViewAllInvoices.AllowUserToDeleteRows = false;
             this.dataGridViewAllInvoices.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridViewAllInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAllInvoices.Location = new System.Drawing.Point(13, 11);
-            this.dataGridViewAllInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewAllInvoices.Location = new System.Drawing.Point(19, 129);
             this.dataGridViewAllInvoices.Name = "dataGridViewAllInvoices";
             this.dataGridViewAllInvoices.ReadOnly = true;
             this.dataGridViewAllInvoices.RowHeadersWidth = 62;
             this.dataGridViewAllInvoices.RowTemplate.Height = 33;
-            this.dataGridViewAllInvoices.Size = new System.Drawing.Size(785, 416);
+            this.dataGridViewAllInvoices.Size = new System.Drawing.Size(1121, 582);
             this.dataGridViewAllInvoices.TabIndex = 6;
             this.dataGridViewAllInvoices.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewAllInvoices_DataBindingComplete);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
-            this.ClientSize = new System.Drawing.Size(846, 479);
+            this.ClientSize = new System.Drawing.Size(1209, 798);
             this.Controls.Add(this.tabControlTutorHelper);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Tutor Helper App";
             this.tabControlTutorHelper.ResumeLayout(false);
@@ -463,6 +573,7 @@
             this.tabPageLessons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLessons)).EndInit();
             this.tabPageAllInvoices.ResumeLayout(false);
+            this.tabPageAllInvoices.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllInvoices)).EndInit();
             this.ResumeLayout(false);
 
@@ -494,5 +605,17 @@
         private DataGridView dataGridViewInvoicesLastMonth;
         private TabPage tabPageAllInvoices;
         private DataGridView dataGridViewAllInvoices;
+        private Label label1;
+        private ComboBox comboBoxStudent;
+        private Label label3;
+        private ComboBox comboBoxMonth;
+        private Label label2;
+        private ComboBox comboBoxYear;
+        private DateTimePicker dateTimePickerTo;
+        private DateTimePicker dateTimePickerFrom;
+        private Label label5;
+        private Label label4;
+        private RadioButton radioButtonFromTo;
+        private RadioButton radioButtonYearMonth;
     }
 }

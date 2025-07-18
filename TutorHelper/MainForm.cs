@@ -17,7 +17,8 @@ using TutorHelper.Helpers;
 using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Configuration;
-
+using ComboBox = System.Windows.Forms.ComboBox;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace TutorHelper
 {
@@ -33,6 +34,10 @@ namespace TutorHelper
         private DataTable tableInvoices;
         private DataTable tableInvoicesLastMonth;
         private DataTable tableAllInvoices;
+
+        private long filterStudentId = -1;
+        private string filterYear = "<All>";
+        private int filterMonth = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -84,6 +89,10 @@ namespace TutorHelper
             }
             if (tabControlTutorHelper.SelectedTab == tabPageAllInvoices)
             {
+                radioButtonYearMonth.Checked = true;
+                SetupComboBox(comboBoxStudent, GetAllStudents);
+                SetupComboBoxWithOneColumn(comboBoxYear, GetAllYears);
+                SetupComboBoxForMonths();
                 LoadDataIntoGridAllInvoices();
             }
         }
@@ -96,7 +105,7 @@ namespace TutorHelper
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 
-            string query = radioButtonShowAll.Checked?"SELECT * FROM Students": "SELECT * FROM Students WHERE Current=TRUE";
+            string query = radioButtonShowAll.Checked ? "SELECT * FROM Students" : "SELECT * FROM Students WHERE Current=TRUE";
 
             using var command = new SqliteCommand(query, connection);
             using var reader = command.ExecuteReader();
@@ -105,7 +114,7 @@ namespace TutorHelper
             tableStudents.Load(reader);  // Load data from reader into DataTable
 
             tableStudents.Columns.Add("IsMarkedDeleted", typeof(bool));
-            
+
             AllowDBNullToDataTable(tableStudents);
 
             dataGridViewStudents.DataSource = tableStudents;
@@ -131,7 +140,7 @@ namespace TutorHelper
             DialogResult result = MessageBox.Show(
         "Do you really want to save changes?",
         "Confirm Save",
-        MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -236,7 +245,7 @@ namespace TutorHelper
                 }
 
                 LoadDataIntoGridStudents();
-            }       
+            }
         }
 
         private bool CanDeactivateStudent(int studentId)
@@ -538,7 +547,7 @@ namespace TutorHelper
                 comboColumn.Width = 250;
                 comboColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
 
-                grid.Columns.Insert(insertAtColumnIndex, comboColumn);           
+                grid.Columns.Insert(insertAtColumnIndex, comboColumn);
             }
             else // refresh content if column exists
             {
@@ -558,6 +567,56 @@ namespace TutorHelper
 
             return dataRow?["Name"].ToString() ?? "(unknown)";
         }
+
+
+        // =================
+        // Combo Box
+        // =================
+
+        private void SetupComboBox(ComboBox comboBox, Func<DataTable> getValues)
+        {
+            // Create and insert the "<All>" row
+            DataTable dataTable = getValues();
+            DataRow emptyRow = dataTable.NewRow();
+            emptyRow["Id"] = -1;           // Use a special value for "All"
+            emptyRow["Name"] = "<All>";
+            dataTable.Rows.InsertAt(emptyRow, 0);  // Insert at the top
+
+            comboBox.DataSource = dataTable;
+            comboBox.DisplayMember = "Name";  // what user sees
+            comboBox.ValueMember = "Id";      // underlying value (ID)
+        }
+
+        private void SetupComboBoxWithOneColumn(ComboBox comboBox, Func<DataTable> getValues)
+        {
+            // Create and insert the "<All>" row
+            DataTable dataTable = getValues();
+            DataRow emptyRow = dataTable.NewRow();
+            emptyRow["Name"] = "<All>";
+            dataTable.Rows.InsertAt(emptyRow, 0);  // Insert at the top
+
+            comboBox.DataSource = dataTable;
+            comboBox.DisplayMember = "Name";  // what user sees
+            comboBox.ValueMember = "Name";
+        }
+
+        private void SetupComboBoxForMonths()
+        {
+            comboBoxMonth.Items.Clear();
+            comboBoxMonth.Items.Add("<All>");  // index 0
+
+            var monthNames = System.Globalization.DateTimeFormatInfo.CurrentInfo.MonthNames;
+
+            foreach (var month in monthNames)
+            {
+                if (!string.IsNullOrWhiteSpace(month))  // skip the 13th empty entry
+                    comboBoxMonth.Items.Add(month);
+            }
+
+            comboBoxMonth.SelectedIndex = 0; 
+        }
+
+
 
         // =================
         // Check Box Column
@@ -811,14 +870,48 @@ namespace TutorHelper
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 
-            string query = @"SELECT s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
+            using var command = new SqliteCommand();
+
+            string query;
+
+            if (radioButtonYearMonth.Checked)
+            {
+                query = @"SELECT s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
                             '£' || li.Price || ' ' || li.UsualDay || ' ' || li.UsualTime as Comment, 
                             r.LessonDate as LessonDate, r.LessonTime as LessonTime, r.InvoiceDate as InvoiceDate, strftime('%m-%d %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
                             FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                             INNER JOIN InvoiceRecords r ON li.Id = r.LinkId
+                            WHERE (@StudentId = -1 OR s.Id = @StudentId)
+                            AND (@Year = '<All>' OR strftime('%Y', r.LessonDate) = @Year)
+                            AND (@Month = 0 OR CAST(strftime('%m', r.LessonDate) AS INTEGER) = @Month)
                             ORDER BY r.InvoiceRecordedDate DESC";
 
-            using var command = new SqliteCommand(query, connection);
+                command.Parameters.AddWithValue("@Year", filterYear);
+                command.Parameters.AddWithValue("@Month", filterMonth);
+            }
+            else
+            {
+                string dateFrom = dateTimePickerFrom.Value.ToString("yyyy-MM-dd");
+                string dateTo = dateTimePickerTo.Value.ToString("yyyy-MM-dd");
+
+                query = @"SELECT s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
+                            '£' || li.Price || ' ' || li.UsualDay || ' ' || li.UsualTime as Comment, 
+                            r.LessonDate as LessonDate, r.LessonTime as LessonTime, r.InvoiceDate as InvoiceDate, strftime('%m-%d %H:%M', r.InvoiceRecordedDate) as InvoiceRecordedDate
+                            FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
+                            INNER JOIN InvoiceRecords r ON li.Id = r.LinkId
+                            WHERE (@StudentId = -1 OR s.Id = @StudentId)
+                            AND DATE(r.LessonDate) BETWEEN @From AND @To
+                            ORDER BY r.InvoiceRecordedDate DESC";
+
+                command.Parameters.AddWithValue("@From", dateFrom);
+                command.Parameters.AddWithValue("@To", dateTo);
+            }
+
+            command.Parameters.AddWithValue("@StudentId", filterStudentId);
+
+            command.CommandText = query;
+            command.Connection = connection;
+
             using var reader = command.ExecuteReader();
 
             tableAllInvoices = new DataTable();
@@ -1173,5 +1266,85 @@ namespace TutorHelper
             return lessonsTable;
         }
 
+        public DataTable GetAllYears()
+        {
+            // Create DataTable with schema
+            DataTable yearsTable = new DataTable();
+            yearsTable.Columns.Add("Name", typeof(string));
+
+            using (var conn = new SqliteConnection(connectionString))
+            {
+                conn.Open();
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT distinct strftime('%Y', LessonDate) as Year
+                FROM InvoiceRecords 
+                ORDER BY Year";
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string year = reader.GetString(0);
+                    yearsTable.Rows.Add(year);
+                }
+            }
+            return yearsTable;
+        }
+        private void comboBoxStudent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxStudent.SelectedValue == null || comboBoxStudent.SelectedValue is DataRowView)
+                return;
+
+            filterStudentId = Convert.ToInt64(comboBoxStudent.SelectedValue);
+
+            // Now reload grid 
+            LoadDataIntoGridAllInvoices();
+        }
+
+        private void comboBoxYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxYear.SelectedValue == null || comboBoxYear.SelectedValue is DataRowView)
+                return;
+            filterYear = comboBoxYear.SelectedValue.ToString();
+
+            // Now reload grid 
+            LoadDataIntoGridAllInvoices();
+        }
+
+        private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filterMonth = comboBoxMonth.SelectedIndex;
+
+            // Now reload grid 
+            LoadDataIntoGridAllInvoices();
+        }
+
+        private void radioButtonYearMonth_CheckedChanged(object sender, EventArgs e)
+        {
+            dateTimePickerFrom.Enabled = false;
+            dateTimePickerTo.Enabled = false;
+            comboBoxMonth.Enabled = true;
+            comboBoxYear.Enabled = true;
+            LoadDataIntoGridAllInvoices();
+        }
+
+        private void radioButtonFromTo_CheckedChanged(object sender, EventArgs e)
+        {
+            dateTimePickerFrom.Enabled = true;
+            dateTimePickerTo.Enabled = true;
+            comboBoxMonth.Enabled = false;
+            comboBoxYear.Enabled = false;
+            comboBoxMonth.SelectedIndex = 0;
+            comboBoxYear.SelectedIndex = 0;
+        }
+
+        private void dateTimePickerFrom_ValueChanged(object sender, EventArgs e)
+        {
+            LoadDataIntoGridAllInvoices();
+        }
+
+        private void dateTimePickerTo_ValueChanged(object sender, EventArgs e)
+        {
+            LoadDataIntoGridAllInvoices();
+        }
     }
 }
