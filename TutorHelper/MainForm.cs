@@ -1021,13 +1021,20 @@ namespace TutorHelper
                         using var connection = new SqliteConnection(connectionString);
                         connection.Open();
 
-                        string insertSql = "INSERT INTO InvoiceRecords (LinkId, LessonDate, LessonTime, InvoiceDate, InvoiceRecordedDate) VALUES ($linkId, $lessonDate, $lessonTime, $invoiceDate, datetime('now', 'localtime'))";
+                        //DateTime parsedLessonDate = DateTime.ParseExact(row["LessonDate"].ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        //DateTime parsedInvoiceDate = DateTime.ParseExact(row["InvoiceDate"].ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        // Convert to SQLite-compatible format
+                        string sqliteLessonDate = ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "yyyy-MM-dd");//parsedLessonDate.ToString("yyyy-MM-dd");
+                        string sqliteInvoiceDate = ToDateFormat(row["InvoiceDate"], "dd-mm-yyyy", "yyyy-MM-dd");//parsedInvoiceDate.ToString("yyyy-MM-dd");
+
+                        string insertSql = @"INSERT INTO InvoiceRecords (LinkId, LessonDate, LessonTime, InvoiceDate, InvoiceRecordedDate)
+                        VALUES ($linkId, $lessonDate, $lessonTime, $invoiceDate, datetime('now', 'localtime'))";
 
                         using var cmd = new SqliteCommand(insertSql, connection);
                         cmd.Parameters.AddWithValue("$linkId", row["Id"]);
-                        cmd.Parameters.AddWithValue("$lessonDate", row["LessonDate"]);
+                        cmd.Parameters.AddWithValue("$lessonDate", sqliteLessonDate);
                         cmd.Parameters.AddWithValue("$lessonTime", row["LessonTime"]);
-                        cmd.Parameters.AddWithValue("$invoiceDate", row["InvoiceDate"]);
+                        cmd.Parameters.AddWithValue("$invoiceDate", sqliteInvoiceDate);
 
                         cmd.ExecuteNonQuery();
                         changesPerformed = true;
@@ -1040,8 +1047,8 @@ namespace TutorHelper
                             { "{lessonName}", row["LessonName"].ToString() },
                             { "{lessonTime}", row["LessonTime"].ToString() },
                             { "{price}", $"£{row["Price"].ToString()}" },
-                            { "{lessonDate}", ToDateFormat(row["LessonDate"],"yyyy-mm-dd","dd/mm/yyyy") },  
-                            { "{invoiceDate}", ToDateFormat(row["InvoiceDate"],"yyyy-mm-dd","dd/mm/yyyy") },
+                            { "{lessonDate}", ToDateFormat(row["LessonDate"],"dd-mm-yyyy","dd/mm/yyyy") },  
+                            { "{invoiceDate}", ToDateFormat(row["InvoiceDate"],"dd-mm-yyyy","dd/mm/yyyy") },
                         };
                         
                         string templateFile = templatePath + "invoiceTemplate.docx";
