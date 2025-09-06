@@ -1110,12 +1110,12 @@ namespace TutorHelper
                             { "{lessonName}", row["LessonName"].ToString() },
                             { "{lessonTime}", row["LessonTime"].ToString() },
                             { "{price}", $"£{row["Price"].ToString()}" },
-                            { "{lessonDate}", ToDateFormat(row["LessonDate"],"dd-mm-yyyy","dd/mm/yyyy") },  
-                            { "{invoiceDate}", ToDateFormat(row["InvoiceDate"],"dd-mm-yyyy","dd/mm/yyyy") },
+                            { "{lessonDate}", ToDateFormat(row["LessonDate"],"dd-MM-yyyy","dd/MM/yyyy") },  
+                            { "{invoiceDate}", ToDateFormat(row["InvoiceDate"],"dd-MM-yyyy","dd/MM/yyyy") },
                         };
-                        
+
                         string templateFile = templatePath + "invoiceTemplate.docx";
-                        string outputFileName = $"invoice_{row["StudentName"].ToString()}_{ToDateFormat(row["LessonDate"],"yyyy-mm-dd","ddmmyyyy")}";
+                        string outputFileName = $"invoice_{row["StudentName"].ToString()}_{ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "ddMMyyyy")}";
 
                         string outputPath = connectionString == "Data Source=tutorhelper.db"?@$"{invoicesPath}Invoices\{outputFileName}.docx": @$"{invoicesPath}InvoicesTest\{outputFileName}.docx";
                         string outputPathPdf = connectionString == "Data Source=tutorhelper.db" ? @$"{invoicesPath}Invoices\{outputFileName}.pdf" : @$"{invoicesPath}InvoicesTest\{outputFileName}.pdf";
@@ -1123,7 +1123,7 @@ namespace TutorHelper
                         WordTemplateHelper.ReplacePlaceholders(templateFile, outputPath, replacements);
                         WordToPdfConverter.Convert(outputPath, outputPathPdf);
 
-                        EmailHelper.SendInvoice(row["StudentEmail"].ToString(), row["StudentParent"].ToString(), ToDateFormat(row["InvoiceDate"], "yyyy-mm-dd", "ddmmyyyy"), outputPathPdf);
+                        EmailHelper.SendInvoice(row["StudentEmail"].ToString(), row["StudentParent"].ToString(), ToDateFormat(row["InvoiceDate"], "dd-MM-yyyy", "ddMMyyyy"), outputPathPdf);
 
                         Cursor.Current = Cursors.Default;
                     }
