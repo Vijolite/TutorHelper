@@ -1087,8 +1087,8 @@ namespace TutorHelper
                         connection.Open();
 
                         // Convert to SQLite-compatible format
-                        string sqliteLessonDate = ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "yyyy-MM-dd");
-                        string sqliteInvoiceDate = ToDateFormat(row["InvoiceDate"], "dd-mm-yyyy", "yyyy-MM-dd");
+                        string sqliteLessonDate = ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "yyyy-MM-dd");
+                        string sqliteInvoiceDate = ToDateFormat(row["InvoiceDate"], "dd-MM-yyyy", "yyyy-MM-dd");
 
                         string insertSql = @"INSERT INTO InvoiceRecords (LinkId, LessonDate, LessonTime, InvoiceDate, InvoiceRecordedDate)
                         VALUES ($linkId, $lessonDate, $lessonTime, $invoiceDate, datetime('now', 'localtime'))";
