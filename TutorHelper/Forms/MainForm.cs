@@ -10,6 +10,7 @@ namespace TutorHelper.Forms
         string templatePath = ConfigurationManager.AppSettings["InvoiceTemplatePath"];
         string invoicesPath = ConfigurationManager.AppSettings["PreparedInvoicesPath"];
         string invoicesFolderName = connectionString == "Data Source=tutorhelper.db" ? @$"Invoices" : @$"InvoicesTest";
+        string summariesFolderName = connectionString == "Data Source=tutorhelper.db" ? @$"Summaries" : @$"SummariesTest";
 
         private DataTable tableStudents;
         private DataTable tableLessons;

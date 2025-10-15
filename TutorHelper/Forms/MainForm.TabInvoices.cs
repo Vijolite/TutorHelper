@@ -187,7 +187,7 @@ namespace TutorHelper.Forms
                         string outputFileName = $"invoice_{row["StudentName"].ToString()}_{ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "ddMMyyyy")}";
 
                         string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
-                        string outputFolderPath = SearchForRightFolderForInvoiceWithDate(mainOutputFolder, ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "yyyy"), ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "MM"));
+                        string outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, invoicesFolderName, ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "yyyy"), ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "MM"));
 
                         string outputPath = @$"{outputFolderPath}\{outputFileName}.docx";
                         string outputPathPdf = @$"{outputFolderPath}\{outputFileName}.pdf";
@@ -209,28 +209,5 @@ namespace TutorHelper.Forms
             }
         }
 
-        string SearchForRightFolderForInvoiceWithDate (string mainFolderPath, string year, string month)
-        {
-            if (!Directory.Exists(mainFolderPath))
-            {
-                Directory.CreateDirectory(mainFolderPath);
-            }
-
-            string folderPath = @$"{mainFolderPath}\{invoicesFolderName}_{year}";
-
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
-
-            folderPath = @$"{folderPath}\{invoicesFolderName}_{year}{month}";
-
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
-
-            return folderPath;
-        }
     }
 }

@@ -1,5 +1,8 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Globalization;
+using Color = System.Drawing.Color;
 
 namespace TutorHelper.Forms
 {
@@ -152,10 +155,23 @@ namespace TutorHelper.Forms
 
                     string templateFile = templatePath + "summaryTemplate.docx";
 
-                    string outputFileName = radioButtonYearMonth.Checked ? $"end_of_month_summary_{studentName}_{comboBoxMonth.SelectedItem.ToString()}{filterYear}" :
-                        $"end_of_month_summary_{studentName}_{dateTimePickerFrom.Value.ToString("dd-MM-yyyy")}_{dateTimePickerTo.Value.ToString("dd-MM-yyyy")}";
+                    string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
+                    string outputFileName;
+                    string outputFolderPath;
+                    
+                    if (radioButtonYearMonth.Checked)
+                    {
+                        outputFileName = $"end_of_month_summary_{studentName}_{comboBoxMonth.SelectedItem.ToString()}{filterYear}";
+                        int monthNumber = DateTime.ParseExact(comboBoxMonth.SelectedItem.ToString(), "MMMM", CultureInfo.InvariantCulture).Month;
+                        outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, summariesFolderName, filterYear, DateTime.ParseExact(comboBoxMonth.SelectedItem.ToString(), "MMMM", CultureInfo.InvariantCulture).Month.ToString("00"));
+                    }
+                    else
+                    {
+                        outputFileName = $"end_of_month_summary_{studentName}_{dateTimePickerFrom.Value.ToString("dd-MM-yyyy")}_{dateTimePickerTo.Value.ToString("dd-MM-yyyy")}";
+                        outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, summariesFolderName, dateTimePickerTo.Value.ToString("yyyy"), dateTimePickerTo.Value.ToString("MM"));
+                    }
 
-                    string outputPath = connectionString == "Data Source=tutorhelper.db" ? @$"{invoicesPath}Invoices\{outputFileName}.docx" : @$"{invoicesPath}InvoicesTest\{outputFileName}.docx";
+                    string outputPath = @$"{outputFolderPath}\{outputFileName}.docx";
 
                     WordTemplateHelper.ReplacePlaceholders(templateFile, outputPath, replacements);
                 }
