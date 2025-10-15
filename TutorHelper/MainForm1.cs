@@ -22,7 +22,7 @@ using DocumentFormat.OpenXml.Bibliography;
 
 namespace TutorHelper
 {
-    public partial class MainForm : Form
+    public partial class MainForm1 : Form
     {
         string connectionString = ConfigurationManager.AppSettings["DataBaseConnectionString"];
         string templatePath = ConfigurationManager.AppSettings["InvoiceTemplatePath"];
@@ -38,7 +38,7 @@ namespace TutorHelper
         private long filterStudentId = -1;
         private string filterYear = "<All>";
         private int filterMonth = 0;
-        public MainForm()
+        public MainForm1()
         {
             InitializeComponent();
             this.BackColor = Color.Lavender;

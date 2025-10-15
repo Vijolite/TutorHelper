@@ -1,6 +1,6 @@
 ﻿namespace TutorHelper
 {
-    partial class MainForm
+    partial class MainForm1
     {
         /// <summary>
         ///  Required designer variable.

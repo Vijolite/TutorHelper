@@ -1,3 +1,5 @@
+using TutorHelper.Forms;
+
 namespace TutorHelper
 {
     internal static class Program

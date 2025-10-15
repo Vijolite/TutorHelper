@@ -6,9 +6,10 @@ namespace TutorHelper.Forms
 {
     public partial class MainForm : Form
     {
-        string connectionString = ConfigurationManager.AppSettings["DataBaseConnectionString"];
+        static string connectionString = ConfigurationManager.AppSettings["DataBaseConnectionString"];
         string templatePath = ConfigurationManager.AppSettings["InvoiceTemplatePath"];
         string invoicesPath = ConfigurationManager.AppSettings["PreparedInvoicesPath"];
+        string invoicesFolderName = connectionString == "Data Source=tutorhelper.db" ? @$"Invoices" : @$"InvoicesTestDeleteLater";
 
         private DataTable tableStudents;
         private DataTable tableLessons;

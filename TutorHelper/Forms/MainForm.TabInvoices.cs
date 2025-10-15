@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data;
-using Color = System.Drawing.Color;
 using TutorHelper.Helpers;
+using Color = System.Drawing.Color;
 
 
 namespace TutorHelper.Forms
@@ -186,8 +186,11 @@ namespace TutorHelper.Forms
                         string templateFile = templatePath + "invoiceTemplate.docx";
                         string outputFileName = $"invoice_{row["StudentName"].ToString()}_{ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "ddMMyyyy")}";
 
-                        string outputPath = connectionString == "Data Source=tutorhelper.db" ? @$"{invoicesPath}Invoices\{outputFileName}.docx" : @$"{invoicesPath}InvoicesTest\{outputFileName}.docx";
-                        string outputPathPdf = connectionString == "Data Source=tutorhelper.db" ? @$"{invoicesPath}Invoices\{outputFileName}.pdf" : @$"{invoicesPath}InvoicesTest\{outputFileName}.pdf";
+                        string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
+                        string outputFolderPath = SearchForRightFolderForInvoiceWithDate(mainOutputFolder, ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "yyyy"), ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "MM"));
+
+                        string outputPath = @$"{outputFolderPath}\{outputFileName}.docx";
+                        string outputPathPdf = @$"{outputFolderPath}\{outputFileName}.pdf";
 
                         WordTemplateHelper.ReplacePlaceholders(templateFile, outputPath, replacements);
                         WordToPdfConverter.Convert(outputPath, outputPathPdf);
@@ -204,6 +207,30 @@ namespace TutorHelper.Forms
                 LoadDataIntoGridInvoices();
                 LoadDataIntoGridInvoicesLastMonth();
             }
+        }
+
+        string SearchForRightFolderForInvoiceWithDate (string mainFolderPath, string year, string month)
+        {
+            if (!Directory.Exists(mainFolderPath))
+            {
+                Directory.CreateDirectory(mainFolderPath);
+            }
+
+            string folderPath = @$"{mainFolderPath}\{invoicesFolderName}_{year}";
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            folderPath = @$"{folderPath}\{invoicesFolderName}_{year}{month}";
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            return folderPath;
         }
     }
 }
