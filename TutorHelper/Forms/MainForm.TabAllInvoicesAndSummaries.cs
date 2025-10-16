@@ -127,11 +127,17 @@ namespace TutorHelper.Forms
                     var studentData = group.First();
                     string studentName = studentData["StudentName"].ToString();
                     string studentParent = studentData["StudentParent"].ToString();
-                    string lessonName = studentData["LessonName"].ToString();
-                    string price = $"£{studentData["Price"].ToString()}";
                     string summaryDate = DateTime.Now.ToString("dd/MM/yyyy");
+                    // If there were several different lessons for one student
+                    var lessonNames = group.Select(row => row["LessonName"].ToString()).Distinct();
 
-                    var lessonDates = group.Select(row => ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy")).OrderBy(d => ToDateFormat(d, "dd/mm/yyyy", "yyyymmdd"));
+                    string lessonName = string.Join(", ", lessonNames);
+
+                    var lessonDatesPrices = lessonNames.Count() == 1 ?
+                        group.Select(row => (ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), "£" + row["price"].ToString()))
+                        .OrderBy(d => ToDateFormat(d, "dd/mm/yyyy", "yyyymmdd")) :
+                        group.Select(row => (ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), "£" + row["price"].ToString() + " (" + row["LessonName"].ToString() + ")"))
+                        .OrderBy(d => ToDateFormat(d, "dd/mm/yyyy", "yyyymmdd"));
 
                     var replacements = new Dictionary<string, string>
                                             {
@@ -141,10 +147,10 @@ namespace TutorHelper.Forms
                                                 { "{summaryDate}", summaryDate },
                                             };
                     int ind = 1;
-                    foreach (var lessonDate in lessonDates)
+                    foreach (var (lessonDate,lessonPrice) in lessonDatesPrices)
                     {
                         replacements.Add($"{{lessonDate{ind}}}", lessonDate);
-                        replacements.Add($"{{price{ind}}}", price);
+                        replacements.Add($"{{price{ind}}}", lessonPrice);
                         ind++;
                     }
                     for (int i = ind; i <= 6; i++)
