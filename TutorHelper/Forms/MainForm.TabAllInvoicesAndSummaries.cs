@@ -1,4 +1,6 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using DocumentFormat.OpenXml.Office.Word;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Globalization;
@@ -195,6 +197,7 @@ namespace TutorHelper.Forms
         {
             LoadDataIntoGridAllInvoices();
         }
+
 
         // =================
         // Combo Box

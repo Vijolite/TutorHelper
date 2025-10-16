@@ -184,7 +184,12 @@ namespace TutorHelper.Forms
                         };
 
                         string templateFile = templatePath + "invoiceTemplate.docx";
+
+                        //int numberOfSubjectsForOneStudent = rowsForSendingInvoices.Where(x => x["StudentName"].ToString() == row["StudentName"].ToString()).Count();
+
                         string outputFileName = $"invoice_{row["StudentName"].ToString()}_{ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "ddMMyyyy")}";
+                        //if (numberOfSubjectsForOneStudent > 1) outputFileName += $"_{row["LessonName"].ToString()}";
+                        if (IfStudentWithSeveralLessons((long)row["Id"])) outputFileName += $"_{row["LessonName"].ToString()}";
 
                         string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
                         string outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, invoicesFolderName, ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "yyyy"), ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "MM"));
@@ -207,6 +212,27 @@ namespace TutorHelper.Forms
                 LoadDataIntoGridInvoices();
                 LoadDataIntoGridInvoicesLastMonth();
             }
+        }
+
+        private bool IfStudentWithSeveralLessons(long linkId)
+        {
+            using (var conn = new SqliteConnection(connectionString))
+            {
+                conn.Open();
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"SELECT COUNT(*)
+                                    FROM StudentLessonLink
+                                    WHERE Actual=true
+                                    AND StudentId IN (
+                                    SELECT li.StudentId FROM StudentLessonLink li INNER JOIN InvoiceRecords r ON li.Id = r.LinkId
+                                    WHERE r.LinkId = @linkId
+                                    )";
+                cmd.Parameters.AddWithValue("@linkId", linkId);
+
+                long count = (long)cmd.ExecuteScalar();
+                return count > 1;
+            }
+
         }
 
     }
