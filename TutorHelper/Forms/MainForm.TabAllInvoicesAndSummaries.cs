@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Globalization;
+using TutorHelper.Helpers;
 using Color = System.Drawing.Color;
 
 namespace TutorHelper.Forms
@@ -133,10 +134,10 @@ namespace TutorHelper.Forms
                     string lessonName = string.Join(", ", lessonNames);
 
                     var lessonDatesPrices = lessonNames.Count() == 1 ?
-                        group.Select(row => (ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), "£" + row["price"].ToString()))
-                        .OrderBy(d => ToDateFormat(d, "dd/mm/yyyy", "yyyymmdd")) :
-                        group.Select(row => (ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), "£" + row["price"].ToString() + " (" + row["LessonName"].ToString() + ")"))
-                        .OrderBy(d => ToDateFormat(d, "dd/mm/yyyy", "yyyymmdd"));
+                        group.Select(row => (Date: ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), Price: "£" + row["price"].ToString()))
+                        .OrderBy(x => ToDateFormat(x.Date, "dd/mm/yyyy", "yyyymmdd")) :
+                        group.Select(row => (Date: ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), Price: "£" + row["price"].ToString() + " (" + row["LessonName"].ToString() + ")"))
+                        .OrderBy(x => ToDateFormat(x.Date, "dd/mm/yyyy", "yyyymmdd"));
 
                     var replacements = new Dictionary<string, string>
                                             {
@@ -158,8 +159,7 @@ namespace TutorHelper.Forms
                         replacements.Add($"{{price{i}}}", "");
                     }
 
-                    string templateFile = templatePath + "summaryTemplate.docx";
-
+                    int lessonNumber = ind-1;
                     string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
                     string outputFileName;
                     string outputFolderPath;
@@ -176,9 +176,9 @@ namespace TutorHelper.Forms
                         outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, summariesFolderName, dateTimePickerTo.Value.ToString("yyyy"), dateTimePickerTo.Value.ToString("MM"));
                     }
 
-                    string outputPath = @$"{outputFolderPath}\{outputFileName}.docx";
+                    string templateType = lessonNumber <= 6 ? "docx" : "html";
+                    CreateWordDocFromTemplate(templateType, outputFolderPath, outputFileName, replacements); 
 
-                    WordTemplateHelper.ReplacePlaceholders(templateFile, outputPath, replacements);
                 }
                 Cursor.Current = Cursors.Default;
                 MessageBox.Show($"Summaries are prepared and saved", "Action Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -195,6 +195,25 @@ namespace TutorHelper.Forms
             LoadDataIntoGridAllInvoices();
         }
 
+        void CreateWordDocFromTemplate(string templateType, string outputFolderPath, string outputFileName, Dictionary<string, string> replacements)
+        {
+            string outputPathDoc = @$"{outputFolderPath}\{outputFileName}.docx";           
+            string templateFile = templatePath + @$"summaryTemplate.{templateType}";
+            if (templateType == "docx")
+            {
+                WordTemplateHelper.ReplacePlaceholders(templateFile, outputPathDoc, replacements);
+            }
+            else if (templateType == "html")
+            {
+                string outputPathHtml = @$"{outputFolderPath}\{outputFileName}.html";
+                string htmlForLessonPriceTable = HtmlTemplateHelper.PrepareLessonPriceTable(replacements);
+                replacements.Add("{lessonPriceTable}", htmlForLessonPriceTable);
+                HtmlTemplateHelper.ReplacePlaceholders(templateFile, outputPathHtml, replacements);
+                HtmlToWordConverter.Convert(outputPathHtml, outputPathDoc);
+            }
+
+        }
+        
 
         // =================
         // Combo Box

@@ -185,10 +185,7 @@ namespace TutorHelper.Forms
 
                         string templateFile = templatePath + "invoiceTemplate.docx";
 
-                        //int numberOfSubjectsForOneStudent = rowsForSendingInvoices.Where(x => x["StudentName"].ToString() == row["StudentName"].ToString()).Count();
-
                         string outputFileName = $"invoice_{row["StudentName"].ToString()}_{ToDateFormat(row["LessonDate"], "dd-MM-yyyy", "ddMMyyyy")}";
-                        //if (numberOfSubjectsForOneStudent > 1) outputFileName += $"_{row["LessonName"].ToString()}";
                         if (IfStudentWithSeveralLessons((long)row["Id"])) outputFileName += $"_{row["LessonName"].ToString()}";
 
                         string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
