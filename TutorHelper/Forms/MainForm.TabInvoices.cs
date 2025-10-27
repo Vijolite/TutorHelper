@@ -28,13 +28,6 @@ namespace TutorHelper.Forms
             tableInvoices.Load(reader);  // Load data from reader into DataTable
             tableInvoices.Columns.Add("Invoice", typeof(bool));
 
-/*            // 1. Create the new column
-            DataColumn newColumn = new DataColumn("Invoice", typeof(bool));
-            // 2. Add the column to the DataTable
-            tableInvoices.Columns.Add(newColumn);
-            // 3. Set its ordinal position to 0 to make it the first column
-            newColumn.SetOrdinal(0);*/
-
             dataGridViewInvoices.AutoGenerateColumns = true;
             dataGridViewInvoices.Columns.Clear();
 
