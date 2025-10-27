@@ -2,7 +2,7 @@
 
 namespace TutorHelper_Tests.Model
 {
-    public class HtmlTemplateHelper_Tests
+    public class InvoiceRecord_Tests
     {
 
         [Theory]
