@@ -75,7 +75,7 @@ namespace TutorHelper.Forms
             {
                 radioButtonYearMonth.Checked = true;
                 SetupComboBox(comboBoxStudent, GetAllStudents);
-                SetupComboBoxWithOneColumn(comboBoxYear, GetAllYears);
+                SetupComboBoxForYears();
                 SetupComboBoxForMonths();
                 LoadDataIntoGridAllInvoices();
             }

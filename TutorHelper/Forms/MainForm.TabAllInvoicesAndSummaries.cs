@@ -246,7 +246,16 @@ namespace TutorHelper.Forms
             comboBox.ValueMember = "Name";
         }
 
-        private void SetupComboBoxForMonths()
+        private void SetupComboBoxForYears()
+        {
+            SetupComboBoxWithOneColumn(comboBoxYear, GetAllYears);
+            if (comboBoxYear.Items.Count > 0)
+            {
+                comboBoxYear.SelectedIndex = comboBoxYear.Items.Count - 1; //default selected will be the last year
+            }
+        }
+
+            private void SetupComboBoxForMonths()
         {
             comboBoxMonth.Items.Clear();
             comboBoxMonth.Items.Add("<All>");  // index 0
@@ -259,7 +268,8 @@ namespace TutorHelper.Forms
                     comboBoxMonth.Items.Add(month);
             }
 
-            comboBoxMonth.SelectedIndex = 0;
+            int currentMonth = DateTime.Now.Month; //default selected will be current month
+            comboBoxMonth.SelectedIndex = currentMonth;
         }
 
         private void comboBoxStudent_SelectedIndexChanged(object sender, EventArgs e)
