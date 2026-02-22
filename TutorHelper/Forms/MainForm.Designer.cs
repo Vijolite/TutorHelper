@@ -52,6 +52,7 @@
             this.buttonSaveLessons = new System.Windows.Forms.Button();
             this.dataGridViewLessons = new System.Windows.Forms.DataGridView();
             this.tabPageAllInvoices = new System.Windows.Forms.TabPage();
+            this.buttonSummaries = new System.Windows.Forms.Button();
             this.radioButtonFromTo = new System.Windows.Forms.RadioButton();
             this.radioButtonYearMonth = new System.Windows.Forms.RadioButton();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
@@ -65,7 +66,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxStudent = new System.Windows.Forms.ComboBox();
             this.dataGridViewAllInvoices = new System.Windows.Forms.DataGridView();
-            this.buttonSummaries = new System.Windows.Forms.Button();
+            this.buttonYearReport = new System.Windows.Forms.Button();
             this.tabControlTutorHelper.SuspendLayout();
             this.tabPageInvoices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInvoicesLastMonth)).BeginInit();
@@ -404,6 +405,7 @@
             // 
             // tabPageAllInvoices
             // 
+            this.tabPageAllInvoices.Controls.Add(this.buttonYearReport);
             this.tabPageAllInvoices.Controls.Add(this.buttonSummaries);
             this.tabPageAllInvoices.Controls.Add(this.radioButtonFromTo);
             this.tabPageAllInvoices.Controls.Add(this.radioButtonYearMonth);
@@ -426,10 +428,26 @@
             this.tabPageAllInvoices.Text = "All Invoices";
             this.tabPageAllInvoices.UseVisualStyleBackColor = true;
             // 
+            // buttonSummaries
+            // 
+            this.buttonSummaries.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.buttonSummaries.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.buttonSummaries.FlatAppearance.BorderSize = 2;
+            this.buttonSummaries.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSummaries.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSummaries.ForeColor = System.Drawing.Color.Black;
+            this.buttonSummaries.Location = new System.Drawing.Point(946, 14);
+            this.buttonSummaries.Name = "buttonSummaries";
+            this.buttonSummaries.Size = new System.Drawing.Size(194, 49);
+            this.buttonSummaries.TabIndex = 19;
+            this.buttonSummaries.Text = "Prepare Summaries";
+            this.buttonSummaries.UseVisualStyleBackColor = false;
+            this.buttonSummaries.Click += new System.EventHandler(this.buttonSummaries_Click);
+            // 
             // radioButtonFromTo
             // 
             this.radioButtonFromTo.AutoSize = true;
-            this.radioButtonFromTo.Location = new System.Drawing.Point(475, 89);
+            this.radioButtonFromTo.Location = new System.Drawing.Point(441, 77);
             this.radioButtonFromTo.Name = "radioButtonFromTo";
             this.radioButtonFromTo.Size = new System.Drawing.Size(21, 20);
             this.radioButtonFromTo.TabIndex = 18;
@@ -440,7 +458,7 @@
             // radioButtonYearMonth
             // 
             this.radioButtonYearMonth.AutoSize = true;
-            this.radioButtonYearMonth.Location = new System.Drawing.Point(475, 34);
+            this.radioButtonYearMonth.Location = new System.Drawing.Point(441, 24);
             this.radioButtonYearMonth.Name = "radioButtonYearMonth";
             this.radioButtonYearMonth.Size = new System.Drawing.Size(21, 20);
             this.radioButtonYearMonth.TabIndex = 17;
@@ -451,7 +469,7 @@
             // dateTimePickerTo
             // 
             this.dateTimePickerTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerTo.Location = new System.Drawing.Point(829, 82);
+            this.dateTimePickerTo.Location = new System.Drawing.Point(795, 70);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(135, 31);
             this.dateTimePickerTo.TabIndex = 16;
@@ -460,7 +478,7 @@
             // dateTimePickerFrom
             // 
             this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(583, 82);
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(549, 70);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(134, 31);
             this.dateTimePickerFrom.TabIndex = 15;
@@ -469,7 +487,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(738, 82);
+            this.label5.Location = new System.Drawing.Point(704, 70);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(30, 25);
             this.label5.TabIndex = 14;
@@ -478,7 +496,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(509, 82);
+            this.label4.Location = new System.Drawing.Point(475, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 25);
             this.label4.TabIndex = 13;
@@ -487,7 +505,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(738, 24);
+            this.label3.Location = new System.Drawing.Point(704, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 25);
             this.label3.TabIndex = 12;
@@ -496,7 +514,7 @@
             // comboBoxMonth
             // 
             this.comboBoxMonth.FormattingEnabled = true;
-            this.comboBoxMonth.Location = new System.Drawing.Point(829, 24);
+            this.comboBoxMonth.Location = new System.Drawing.Point(795, 14);
             this.comboBoxMonth.Name = "comboBoxMonth";
             this.comboBoxMonth.Size = new System.Drawing.Size(134, 33);
             this.comboBoxMonth.TabIndex = 11;
@@ -505,7 +523,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(509, 24);
+            this.label2.Location = new System.Drawing.Point(475, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 25);
             this.label2.TabIndex = 10;
@@ -514,7 +532,7 @@
             // comboBoxYear
             // 
             this.comboBoxYear.FormattingEnabled = true;
-            this.comboBoxYear.Location = new System.Drawing.Point(583, 24);
+            this.comboBoxYear.Location = new System.Drawing.Point(549, 14);
             this.comboBoxYear.Name = "comboBoxYear";
             this.comboBoxYear.Size = new System.Drawing.Size(134, 33);
             this.comboBoxYear.TabIndex = 9;
@@ -523,7 +541,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 29);
+            this.label1.Location = new System.Drawing.Point(20, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 25);
             this.label1.TabIndex = 8;
@@ -532,9 +550,9 @@
             // comboBoxStudent
             // 
             this.comboBoxStudent.FormattingEnabled = true;
-            this.comboBoxStudent.Location = new System.Drawing.Point(113, 26);
+            this.comboBoxStudent.Location = new System.Drawing.Point(114, 15);
             this.comboBoxStudent.Name = "comboBoxStudent";
-            this.comboBoxStudent.Size = new System.Drawing.Size(342, 33);
+            this.comboBoxStudent.Size = new System.Drawing.Size(308, 33);
             this.comboBoxStudent.TabIndex = 7;
             this.comboBoxStudent.SelectedIndexChanged += new System.EventHandler(this.comboBoxStudent_SelectedIndexChanged);
             // 
@@ -553,21 +571,21 @@
             this.dataGridViewAllInvoices.TabIndex = 6;
             this.dataGridViewAllInvoices.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewAllInvoices_DataBindingComplete);
             // 
-            // buttonSummaries
+            // buttonYearReport
             // 
-            this.buttonSummaries.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.buttonSummaries.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.buttonSummaries.FlatAppearance.BorderSize = 2;
-            this.buttonSummaries.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSummaries.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonSummaries.ForeColor = System.Drawing.Color.Black;
-            this.buttonSummaries.Location = new System.Drawing.Point(1006, 24);
-            this.buttonSummaries.Name = "buttonSummaries";
-            this.buttonSummaries.Size = new System.Drawing.Size(134, 89);
-            this.buttonSummaries.TabIndex = 19;
-            this.buttonSummaries.Text = "Prepare Summaries";
-            this.buttonSummaries.UseVisualStyleBackColor = false;
-            this.buttonSummaries.Click += new System.EventHandler(this.buttonSummaries_Click);
+            this.buttonYearReport.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.buttonYearReport.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.buttonYearReport.FlatAppearance.BorderSize = 2;
+            this.buttonYearReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonYearReport.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonYearReport.ForeColor = System.Drawing.Color.Black;
+            this.buttonYearReport.Location = new System.Drawing.Point(946, 70);
+            this.buttonYearReport.Name = "buttonYearReport";
+            this.buttonYearReport.Size = new System.Drawing.Size(194, 49);
+            this.buttonYearReport.TabIndex = 20;
+            this.buttonYearReport.Text = "Year Report";
+            this.buttonYearReport.UseVisualStyleBackColor = false;
+            this.buttonYearReport.Click += new System.EventHandler(this.buttonYearReport_Click);
             // 
             // MainForm
             // 
@@ -636,5 +654,6 @@
         private RadioButton radioButtonFromTo;
         private RadioButton radioButtonYearMonth;
         private Button buttonSummaries;
+        private Button buttonYearReport;
     }
 }

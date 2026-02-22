@@ -11,6 +11,7 @@ namespace TutorHelper.Forms
         string invoicesPath = ConfigurationManager.AppSettings["PreparedInvoicesPath"];
         string invoicesFolderName = connectionString == "Data Source=tutorhelper.db" ? @$"Invoices" : @$"InvoicesTest";
         string summariesFolderName = connectionString == "Data Source=tutorhelper.db" ? @$"Summaries" : @$"SummariesTest";
+        string reportsFolderName = connectionString == "Data Source=tutorhelper.db" ? @$"Reports" : @$"ReportsTest";
 
         private DataTable tableStudents;
         private DataTable tableLessons;
@@ -81,6 +82,7 @@ namespace TutorHelper.Forms
             }
         }
 
+
         // =================
         // Students
         // =================
@@ -89,7 +91,7 @@ namespace TutorHelper.Forms
         // =================
         // StudentLessonLink
         // =================
-        
+
 
         // =================
         // Combo Box Column
@@ -114,7 +116,7 @@ namespace TutorHelper.Forms
         // =================
         // Generic methods
         // =================
-        
+
 
         // =================
         // For filling combo boxes

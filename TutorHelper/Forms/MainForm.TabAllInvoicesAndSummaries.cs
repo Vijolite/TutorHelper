@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Vml;
+using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Globalization;
 using TutorHelper.Helpers;
@@ -185,9 +187,157 @@ namespace TutorHelper.Forms
             }
         }
 
+        private void PrepareYearReport()
+        {
+            var rowsFilteredForSummaries = tableAllInvoices.AsEnumerable()
+                .ToList();
+            var rowsGroupedByMonth = rowsFilteredForSummaries.GroupBy(row => ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "mm")).OrderBy(r=>r.Key);
+            var groupedReplacements = new Dictionary<string, string>();
+            var indForGroup = 1;
+            long totalTotal = 0;
+            Cursor.Current = Cursors.WaitCursor;
+            foreach (var group in rowsGroupedByMonth)
+            {
+                groupedReplacements.Add($"{{month{indForGroup}}}", DateTime.ParseExact(group.Key, "MM", null).ToString("MMMM"));
+                var resords = group.OrderBy(row => ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"));
+                var innerReplacements = new Dictionary<string, string>();
+                int ind = 1;
+                long total = 0;
+                foreach (var rec in resords)
+                {
+                    innerReplacements.Add($"{{lessonDate{ind}}}", rec["LessonDate"].ToString());
+                    innerReplacements.Add($"{{studentName{ind}}}", rec["StudentName"].ToString());
+                    innerReplacements.Add($"{{price{ind}}}", "£"+rec["price"].ToString());
+                    total += (long)rec["price"];
+                    ind++;
+                }
+                string htmlForInnerTable = HtmlTemplateHelper.PrepareYearReportMonthTable(innerReplacements);
+                groupedReplacements.Add($"{{htmlForInnerTable{indForGroup}}}", htmlForInnerTable);
+                totalTotal += total;
+                groupedReplacements.Add($"{{total{indForGroup}}}", total.ToString());
+                indForGroup++;
+            }
+            string htmlForGroupedTables = HtmlTemplateHelper.PrepareYearReportGroupedMonthTables(groupedReplacements);
+            groupedReplacements.Add($"{{htmlForGroupedTables}}", htmlForGroupedTables);
+            groupedReplacements.Add($"{{totalTotal}}", totalTotal.ToString());
+
+            string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
+            string outputFileName;
+            string outputFolderPath;
+
+            if (radioButtonYearMonth.Checked)
+            {
+                outputFileName = filterMonth == 0 ? $"year_report_{filterYear}" : $"year_report_{comboBoxMonth.SelectedItem.ToString()}{filterYear}";
+                outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, reportsFolderName, filterYear);
+            }
+            else
+            {
+                outputFileName = $"end_of_month_summary_{dateTimePickerFrom.Value.ToString("dd-MM-yyyy")}_{dateTimePickerTo.Value.ToString("dd-MM-yyyy")}";
+                outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, reportsFolderName, dateTimePickerTo.Value.ToString("yyyy"));
+            }
+
+            string outputPathHtml = @$"{outputFolderPath}\{outputFileName}.html";
+            string templateFile = templatePath + @$"yearReportTemplate.html";
+            HtmlTemplateHelper.ReplacePlaceholders(templateFile, outputPathHtml, groupedReplacements);
+            //HtmlToWordConverter.Convert(outputPathHtml, outputPathDoc);
+            Cursor.Current = Cursors.Default;
+            MessageBox.Show($"Report is prepared and saved", "Action Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+            /*string filteredStudents = string.Join(Environment.NewLine, rowsFilteredForSummaries.Select(row => "- " + row["Student"]).Distinct());
+
+            if (filteredStudents.Length == 0)
+            {
+                MessageBox.Show("No lines are filtered for summaries preparation", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (radioButtonYearMonth.Checked && (filterYear == "<All>" || filterMonth == 0))
+            {
+                MessageBox.Show("Year and month should be specified, alternatively you should select from...to... dates", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                        $"Do you want to prepare summaries for these students? {Environment.NewLine}{filteredStudents}", "Confirm Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                var changesPerformed = false;
+                foreach (var group in rowsGroupedByStudent)
+                {
+                    var id = group.Key;
+                    //MessageBox.Show(id.ToString());
+                    var studentData = group.First();
+                    string studentName = studentData["StudentName"].ToString();
+                    string studentParent = studentData["StudentParent"].ToString();
+                    string summaryDate = DateTime.Now.ToString("dd/MM/yyyy");
+                    // If there were several different lessons for one student
+                    var lessonNames = group.Select(row => row["LessonName"].ToString()).Distinct();
+
+                    string lessonName = string.Join(", ", lessonNames);
+
+                    var lessonDatesPrices = lessonNames.Count() == 1 ?
+                        group.Select(row => (Date: ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), Price: "£" + row["price"].ToString()))
+                        .OrderBy(x => ToDateFormat(x.Date, "dd/mm/yyyy", "yyyymmdd")) :
+                        group.Select(row => (Date: ToDateFormat(row["LessonDate"], "dd-mm-yyyy", "dd/mm/yyyy"), Price: "£" + row["price"].ToString() + " (" + row["LessonName"].ToString() + ")"))
+                        .OrderBy(x => ToDateFormat(x.Date, "dd/mm/yyyy", "yyyymmdd"));
+
+                    var replacements = new Dictionary<string, string>
+                                            {
+                                                { "{studentName}", studentName },
+                                                { "{parentName}", studentParent },
+                                                { "{lessonName}", lessonName },
+                                                { "{summaryDate}", summaryDate },
+                                            };
+                    int ind = 1;
+                    foreach (var (lessonDate, lessonPrice) in lessonDatesPrices)
+                    {
+                        replacements.Add($"{{lessonDate{ind}}}", lessonDate);
+                        replacements.Add($"{{price{ind}}}", lessonPrice);
+                        ind++;
+                    }
+                    for (int i = ind; i <= 6; i++)
+                    {
+                        replacements.Add($"{{lessonDate{i}}}", "");
+                        replacements.Add($"{{price{i}}}", "");
+                    }
+
+                    int lessonNumber = ind - 1;
+                    string mainOutputFolder = @$"{invoicesPath}{invoicesFolderName}";
+                    string outputFileName;
+                    string outputFolderPath;
+
+                    if (radioButtonYearMonth.Checked)
+                    {
+                        outputFileName = $"end_of_month_summary_{studentName}_{comboBoxMonth.SelectedItem.ToString()}{filterYear}";
+                        int monthNumber = DateTime.ParseExact(comboBoxMonth.SelectedItem.ToString(), "MMMM", CultureInfo.InvariantCulture).Month;
+                        outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, summariesFolderName, filterYear, DateTime.ParseExact(comboBoxMonth.SelectedItem.ToString(), "MMMM", CultureInfo.InvariantCulture).Month.ToString("00"));
+                    }
+                    else
+                    {
+                        outputFileName = $"end_of_month_summary_{studentName}_{dateTimePickerFrom.Value.ToString("dd-MM-yyyy")}_{dateTimePickerTo.Value.ToString("dd-MM-yyyy")}";
+                        outputFolderPath = SearchForRightFolderForReportWithDate(mainOutputFolder, summariesFolderName, dateTimePickerTo.Value.ToString("yyyy"), dateTimePickerTo.Value.ToString("MM"));
+                    }
+
+                    string templateType = lessonNumber <= 6 ? "docx" : "html";
+                    CreateWordDocFromTemplate(templateType, outputFolderPath, outputFileName, replacements);
+
+                }
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show($"Summaries are prepared and saved", "Action Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }*/
+        }
+
         private void buttonSummaries_Click(object sender, EventArgs e)
         {
             PrepareSummaryAndBalanceFiles();
+        }
+
+        private void buttonYearReport_Click(object sender, EventArgs e)
+        {
+            PrepareYearReport();
         }
 
         private void dateTimePickerFrom_ValueChanged(object sender, EventArgs e)

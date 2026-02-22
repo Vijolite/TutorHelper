@@ -41,6 +41,23 @@ namespace TutorHelper.Forms
             return folderPath;
         }
 
+        string SearchForRightFolderForReportWithDate(string mainFolderPath, string prefix, string year)
+        {
+            if (!Directory.Exists(mainFolderPath))
+            {
+                Directory.CreateDirectory(mainFolderPath);
+            }
+
+            string folderPath = @$"{mainFolderPath}\{prefix}_{year}";
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            return folderPath;
+        }
+
         private void Generic_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             if (sender is DataGridView grid && e.Row.DataBoundItem is DataRowView rowView)
