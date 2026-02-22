@@ -52,6 +52,7 @@
             this.buttonSaveLessons = new System.Windows.Forms.Button();
             this.dataGridViewLessons = new System.Windows.Forms.DataGridView();
             this.tabPageAllInvoices = new System.Windows.Forms.TabPage();
+            this.buttonYearReport = new System.Windows.Forms.Button();
             this.buttonSummaries = new System.Windows.Forms.Button();
             this.radioButtonFromTo = new System.Windows.Forms.RadioButton();
             this.radioButtonYearMonth = new System.Windows.Forms.RadioButton();
@@ -66,7 +67,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxStudent = new System.Windows.Forms.ComboBox();
             this.dataGridViewAllInvoices = new System.Windows.Forms.DataGridView();
-            this.buttonYearReport = new System.Windows.Forms.Button();
             this.tabControlTutorHelper.SuspendLayout();
             this.tabPageInvoices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInvoicesLastMonth)).BeginInit();
@@ -262,6 +262,8 @@
             this.dataGridViewStudLessonLink.RowTemplate.Height = 33;
             this.dataGridViewStudLessonLink.Size = new System.Drawing.Size(1114, 607);
             this.dataGridViewStudLessonLink.TabIndex = 1;
+            this.dataGridViewStudLessonLink.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudLessonLink_CellContentClick);
+            this.dataGridViewStudLessonLink.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewStudLessonLink_CellFormatting);
             this.dataGridViewStudLessonLink.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewStudLessonLink_DataBindingComplete);
             // 
             // tabPageStudents
@@ -428,6 +430,22 @@
             this.tabPageAllInvoices.Text = "All Invoices";
             this.tabPageAllInvoices.UseVisualStyleBackColor = true;
             // 
+            // buttonYearReport
+            // 
+            this.buttonYearReport.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.buttonYearReport.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.buttonYearReport.FlatAppearance.BorderSize = 2;
+            this.buttonYearReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonYearReport.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonYearReport.ForeColor = System.Drawing.Color.Black;
+            this.buttonYearReport.Location = new System.Drawing.Point(946, 70);
+            this.buttonYearReport.Name = "buttonYearReport";
+            this.buttonYearReport.Size = new System.Drawing.Size(194, 49);
+            this.buttonYearReport.TabIndex = 20;
+            this.buttonYearReport.Text = "Year Report";
+            this.buttonYearReport.UseVisualStyleBackColor = false;
+            this.buttonYearReport.Click += new System.EventHandler(this.buttonYearReport_Click);
+            // 
             // buttonSummaries
             // 
             this.buttonSummaries.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -570,22 +588,6 @@
             this.dataGridViewAllInvoices.Size = new System.Drawing.Size(1121, 582);
             this.dataGridViewAllInvoices.TabIndex = 6;
             this.dataGridViewAllInvoices.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewAllInvoices_DataBindingComplete);
-            // 
-            // buttonYearReport
-            // 
-            this.buttonYearReport.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.buttonYearReport.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.buttonYearReport.FlatAppearance.BorderSize = 2;
-            this.buttonYearReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonYearReport.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonYearReport.ForeColor = System.Drawing.Color.Black;
-            this.buttonYearReport.Location = new System.Drawing.Point(946, 70);
-            this.buttonYearReport.Name = "buttonYearReport";
-            this.buttonYearReport.Size = new System.Drawing.Size(194, 49);
-            this.buttonYearReport.TabIndex = 20;
-            this.buttonYearReport.Text = "Year Report";
-            this.buttonYearReport.UseVisualStyleBackColor = false;
-            this.buttonYearReport.Click += new System.EventHandler(this.buttonYearReport_Click);
             // 
             // MainForm
             // 

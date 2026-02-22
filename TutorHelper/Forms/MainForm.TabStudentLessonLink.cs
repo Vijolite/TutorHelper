@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Windows.Forms;
 
 namespace TutorHelper.Forms
 {
@@ -14,21 +15,24 @@ namespace TutorHelper.Forms
             if (radioButtonShowAllLink.Checked)
                 query =
             @"SELECT li.Id as Id, li.StudentId as StudentId, li.LessonId as LessonId,
-                li.UsualDay as Day, li.UsualTime as Time, li.Price as Price, li.Actual as Actual
+                li.UsualDay as Day, li.UsualTime as Time, li.Price as Price, li.Actual as Actual,
+                li.ZoomInvite as Invite
                 FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                 WHERE s.Current=true
                 ORDER BY s.Name";
             else if (radioButtonShowActual.Checked)
                 query =
                 @"SELECT li.Id as Id, li.StudentId as StudentId, li.LessonId as LessonId,
-                li.UsualDay as Day, li.UsualTime as Time, li.Price as Price, li.Actual as Actual
+                li.UsualDay as Day, li.UsualTime as Time, li.Price as Price, li.Actual as Actual,
+                li.ZoomInvite as Invite
                 FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                 WHERE s.Current=true AND li.Actual=true
                 ORDER BY s.Name";
             else //if (radioButtonShowHistorical.Checked)
                 query =
                 @"SELECT li.Id as Id, li.StudentId as StudentId, li.LessonId as LessonId,
-                li.UsualDay as Day, li.UsualTime as Time, li.Price as Price, li.Actual as Actual
+                li.UsualDay as Day, li.UsualTime as Time, li.Price as Price, li.Actual as Actual,
+                li.ZoomInvite as Invite
                 FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                 ORDER BY s.Name";
 
@@ -65,10 +69,59 @@ namespace TutorHelper.Forms
             dataGridViewStudLessonLink.Columns["StudentId"].Visible = false;
             dataGridViewStudLessonLink.Columns["LessonId"].Visible = false;
             dataGridViewStudLessonLink.Columns["IsMarkedDeleted"].Visible = false;
+            dataGridViewStudLessonLink.Columns["Invite"].Visible = false;
+
+            //
+            if (!dataGridViewStudLessonLink.Columns.Contains("btnInviteText"))
+            {
+                DataGridViewButtonColumn btnInviteText = new DataGridViewButtonColumn();
+                btnInviteText.Name = "btnInviteText";
+                btnInviteText.HeaderText = "Invite";
+                btnInviteText.UseColumnTextForButtonValue = true;
+                btnInviteText.FlatStyle = FlatStyle.Popup;
+
+                dataGridViewStudLessonLink.Columns.Add(btnInviteText);
+
+                dataGridViewStudLessonLink.Columns["btnInviteText"].DefaultCellStyle.BackColor = Color.LightSteelBlue;
+                dataGridViewStudLessonLink.Columns["btnInviteText"].DefaultCellStyle.ForeColor = Color.Black;
+                dataGridViewStudLessonLink.Columns["btnInviteText"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+            dataGridViewStudLessonLink.Columns["btnInviteText"].DisplayIndex = dataGridViewStudLessonLink.Columns.Count - 1;
+            //
 
             ReplaceColumnWithCheckBoxColumn(dataGridViewStudLessonLink, "Actual");
 
             dataGridViewStudLessonLink.DataBindingComplete += dataGridViewStudLessonLink_DataBindingComplete;
+        }
+
+        private void dataGridViewStudLessonLink_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewStudLessonLink.Columns["btnInviteText"].Index
+                && e.RowIndex >= 0)
+            {
+                string currentInviteText = dataGridViewStudLessonLink.Rows[e.RowIndex].Cells["Invite"].Value?.ToString() ?? "";
+                using (AddZoomInviteText form = new AddZoomInviteText())
+                {
+                    form.InviteMessageText = currentInviteText;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        string value = form.InviteMessageText;
+
+                        dataGridViewStudLessonLink.Rows[e.RowIndex].Cells["Invite"].Value = value;
+                    }
+                }
+            }
+        }
+
+        private void dataGridViewStudLessonLink_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridViewStudLessonLink.Columns[e.ColumnIndex].Name == "btnInviteText" && e.RowIndex >= 0)
+            {
+                var inviteValue = dataGridViewStudLessonLink.Rows[e.RowIndex].Cells["Invite"].Value;
+
+                e.Value = inviteValue?.ToString() ?? "Add...";
+                e.FormattingApplied = true;
+            }
         }
 
         private void radioButtonShowActual_CheckedChanged(object sender, EventArgs e)
@@ -140,7 +193,7 @@ namespace TutorHelper.Forms
                     if (row.RowState == DataRowState.Modified)
                     {
                         string updateSql = @"UPDATE StudentLessonLink SET StudentId = $studentId, LessonId = $lessonId, Price = $price, 
-                                            UsualDay = $usualDay, UsualTime = $usualTime, Actual = $actual WHERE Id = $id";
+                                            UsualDay = $usualDay, UsualTime = $usualTime, Actual = $actual, ZoomInvite = $invite WHERE Id = $id";
 
                         using var cmd = new SqliteCommand(updateSql, connection);
                         cmd.Parameters.AddWithValue("$studentId", row["StudentId"]);
@@ -150,14 +203,15 @@ namespace TutorHelper.Forms
                         cmd.Parameters.AddWithValue("$usualTime", row["Time"]);
                         cmd.Parameters.AddWithValue("$actual", row["Actual"]);
                         cmd.Parameters.AddWithValue("$id", row["Id"]);
+                        cmd.Parameters.AddWithValue("$invite", row["Invite"]);
 
                         cmd.ExecuteNonQuery();
                         changesPerformed = true;
                     }
                     else if (row.RowState == DataRowState.Added)
                     {
-                        string insertSql = @"INSERT INTO StudentLessonLink (StudentId, LessonId, Price, UsualDay, UsualTime, Actual)
-                                            VALUES ($studentId, $lessonId, $price, $usualDay, $usualTime, $actual)";
+                        string insertSql = @"INSERT INTO StudentLessonLink (StudentId, LessonId, Price, UsualDay, UsualTime, Actual, ZoomInvite)
+                                            VALUES ($studentId, $lessonId, $price, $usualDay, $usualTime, $actual, $invite)";
 
                         using var cmd = new SqliteCommand(insertSql, connection);
                         cmd.Parameters.AddWithValue("$studentId", row["StudentId"]);
@@ -166,6 +220,7 @@ namespace TutorHelper.Forms
                         cmd.Parameters.AddWithValue("$usualDay", row["Day"]);
                         cmd.Parameters.AddWithValue("$usualTime", row["Time"]);
                         cmd.Parameters.AddWithValue("$actual", row["Actual"]);
+                        cmd.Parameters.AddWithValue("$invite", row["Invite"]);
 
                         cmd.ExecuteNonQuery();
                         changesPerformed = true;
