@@ -45,22 +45,17 @@ namespace TutorHelper.Helpers
             Console.WriteLine("Email sent.");
 
         }
-        public static void SendInvoice(string recipientEmail, string recipientName, DateOnly invoiceDate, string fileToAttach)
+
+        public static void SendInvoice(string recipientEmail, string recipientName, string subject, string body, string fileToAttach)
         {
             var toAddress = new MailAddress(recipientEmail, recipientName);
-            string subject = $"invoice {invoiceDate.ToString()}";
-            string body = $"Invoice from date: {invoiceDate.ToString()} is attached";
-
             SendEmail(toAddress, subject, body, fileToAttach);
         }
 
-        public static void SendInvoice(string recipientEmail, string recipientName, string invoiceDate, string fileToAttach)
+        public static void SendZoomInvite(string recipientEmail, string recipientName, string subject, string body)
         {
             var toAddress = new MailAddress(recipientEmail, recipientName);
-            string subject = $"invoice {invoiceDate}";
-            string body = $"Invoice from date: {invoiceDate} is attached";
-
-            SendEmail(toAddress, subject, body, fileToAttach);
+            SendEmail(toAddress, subject, body);
         }
 
     }
