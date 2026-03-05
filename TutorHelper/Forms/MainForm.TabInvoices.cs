@@ -17,7 +17,8 @@ namespace TutorHelper.Forms
             string query = @"SELECT li.Id as Id, s.Name ||' (' || s.Parent || ') - ' || le.Name as Student, 
                              '£' || li.Price || ' ' || li.UsualDay || ' ' || li.UsualTime as Comment, 
                              strftime('%d-%m-%Y', DATE('now')) as LessonDate, li.UsualTime as LessonTime, strftime('%d-%m-%Y', DATE('now')) as InvoiceDate,
-                             s.Name as StudentName, s.Parent as StudentParent, s.Email as StudentEmail, le.Name as LessonName, li.Price as Price,
+                             s.Name as StudentName, s.Parent as StudentParent, s.Email as StudentEmail, s.EmailAdditional as EmailAdditional,
+                             le.Name as LessonName, li.Price as Price,
                              li.ZoomInvite as ZoomInviteText
                              FROM StudentLessonLink li INNER JOIN Students s ON s.Id = li.StudentId INNER JOIN Lessons le ON le.Id = li.LessonId
                              WHERE li.Actual=true
@@ -94,6 +95,7 @@ namespace TutorHelper.Forms
             dataGridViewInvoices.Columns["StudentName"].Visible = false;
             dataGridViewInvoices.Columns["StudentParent"].Visible = false;
             dataGridViewInvoices.Columns["StudentEmail"].Visible = false;
+            dataGridViewInvoices.Columns["EmailAdditional"].Visible = false;
             dataGridViewInvoices.Columns["LessonName"].Visible = false;
             dataGridViewInvoices.Columns["Price"].Visible = false;
             dataGridViewInvoices.Columns["ZoomInviteText"].Visible = false;
@@ -225,7 +227,7 @@ namespace TutorHelper.Forms
                     string errorMessage;
 
                     if (!ValidationPassedDataRow(row, new List<string> { "Student", "Comment", "LessonDate", "LessonTime", "InvoiceDate", "EmailSubject" },
-                    new List<string> { "LessonDate", "InvoiceDate" }, new List<string> { }, out errorMessage))
+                    new List<string> { "LessonDate", "InvoiceDate" }, new List<string> { }, new List<string> { }, out errorMessage))
                     {
                         MessageBox.Show($"Errors in line {DataRowToString(row, new[] { "Student", "Comment", "LessonDate", "LessonTime", "InvoiceDate", "EmailSubject" })}{Environment.NewLine}{errorMessage}",
                                         "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -291,6 +293,10 @@ namespace TutorHelper.Forms
                         else 
                         {
                             EmailHelper.SendZoomInvite(row["StudentEmail"].ToString(), row["StudentParent"].ToString(), row["EmailSubject"].ToString(), row["ZoomInviteText"].ToString());
+                            if (!string.IsNullOrEmpty(row["EmailAdditional"].ToString()))
+                            {
+                                EmailHelper.SendZoomInvite(row["EmailAdditional"].ToString(), row["EmailAdditional"].ToString(), row["EmailSubject"].ToString(), row["ZoomInviteText"].ToString());
+                            }
                         }
                     }
                 }

@@ -179,7 +179,7 @@ namespace TutorHelper.Forms
                         continue;
 
                     string errorMessage;
-                    if (!ValidationPassedDataRow(row, new List<string> { "StudentId", "LessonId", "Day", "Time", "Price" }, new List<string> { }, new List<string> { "Price" }, out errorMessage))
+                    if (!ValidationPassedDataRow(row, new List<string> { "StudentId", "LessonId", "Day", "Time", "Price" }, new List<string> { }, new List<string> { "Price" }, new List<string> { }, out errorMessage))
                     {
                         int studentId = (row["StudentId"] == DBNull.Value ? 0 : Convert.ToInt32(row["StudentId"]));
                         string studentName = FindNameByIdInComboBox("StudentNameCombo", studentId);

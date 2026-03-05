@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace TutorHelper.Forms
 {
@@ -120,7 +121,7 @@ namespace TutorHelper.Forms
             return string.Join(", ", columnNames.Select(col => row[col]?.ToString() ?? string.Empty));
         }
 
-        bool ValidationPassedDataRow(DataRow row, List<string> columnNames, List<string> columnWithDates, List<string> columnWithNumbers, out string errorMessage)
+        bool ValidationPassedDataRow(DataRow row, List<string> columnNames, List<string> columnWithDates, List<string> columnWithNumbers, List<string> columnWithEmails, out string errorMessage)
         {
             errorMessage = string.Empty;
             string emptyValues = "";
@@ -153,11 +154,27 @@ namespace TutorHelper.Forms
                         }
 
                     }
+                    else if (columnWithEmails.Contains(colName))
+                    {
+                        if (!IsValidEmail(data.ToString()))
+                        {
+                            wrongFormatValues += (colName + " ");
+                            result = false;
+                        }
+
+                    }
                 }
             }
             errorMessage += (emptyValues == string.Empty ? "" : $"Missed values in columns: {emptyValues}{Environment.NewLine}");
             errorMessage += (wrongFormatValues == string.Empty ? "" : $"Wrong format values in columns: {wrongFormatValues}{Environment.NewLine}");
             return result;
         }
+
+        public static bool IsValidEmail(string email)
+        {
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern);
+        }
     }
+
 }

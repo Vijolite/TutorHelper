@@ -27,6 +27,7 @@ namespace TutorHelper.Forms
             dataGridViewStudents.Columns["Name"].HeaderText = "Student's Name";
             dataGridViewStudents.Columns["Parent"].HeaderText = "Parents's Name";
             dataGridViewStudents.Columns["Email"].HeaderText = "Parent's Email";
+            dataGridViewStudents.Columns["EmailAdditional"].HeaderText = "Additional Email";
             dataGridViewStudents.Columns["Id"].Visible = false;
             dataGridViewStudents.Columns["IsMarkedDeleted"].Visible = false;
 
@@ -62,9 +63,17 @@ namespace TutorHelper.Forms
                         continue;
 
                     string errorMessage;
-                    if (!ValidationPassedDataRow(row, new List<string> { "Name", "Parent", "Email" }, new List<string> { }, new List<string> { }, out errorMessage))
+                    if (!ValidationPassedDataRow(row, new List<string> { "Name", "Parent", "Email" }, new List<string> { }, new List<string> { }, new List<string> { "Email"}, out errorMessage))
                     {
                         MessageBox.Show($"Errors in line {DataRowToString(row, new[] { "Name", "Parent", "Email" })}{Environment.NewLine}{errorMessage}",
+                                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        continue;
+                    }
+                    // Separate check for additional email as it should be checked only if present
+                    string additionalEmail = row["EmailAdditional"].ToString();
+                    if (!string.IsNullOrEmpty(additionalEmail) && !IsValidEmail(additionalEmail))
+                    {
+                        MessageBox.Show($"Errors in line {DataRowToString(row, new[] { "Name", "Parent", "Email" })}{Environment.NewLine}Wrong format for additional email!",
                                         "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         continue;
                     }
@@ -80,12 +89,13 @@ namespace TutorHelper.Forms
                             continue; // Skip this update
                         }
 
-                        string updateSql = "UPDATE Students SET Name = $name, Parent = $parent, Email = $email, Current = $current WHERE Id = $id";
+                        string updateSql = "UPDATE Students SET Name = $name, Parent = $parent, Email = $email, EmailAdditional = $emailAdditional, Current = $current WHERE Id = $id";
 
                         using var cmd = new SqliteCommand(updateSql, connection);
                         cmd.Parameters.AddWithValue("$name", row["Name"]);
                         cmd.Parameters.AddWithValue("$parent", row["Parent"]);
                         cmd.Parameters.AddWithValue("$email", row["Email"]);
+                        cmd.Parameters.AddWithValue("$emailAdditional", row["EmailAdditional"]);
                         cmd.Parameters.AddWithValue("$current", row["Current"]);
                         cmd.Parameters.AddWithValue("$id", row["Id"]);
 
@@ -94,12 +104,13 @@ namespace TutorHelper.Forms
                     }
                     else if (row.RowState == DataRowState.Added)
                     {
-                        string insertSql = "INSERT INTO Students (Name, Parent, Email, Current) VALUES ($name, $parent, $email, $current)";
+                        string insertSql = "INSERT INTO Students (Name, Parent, Email, EmailAdditional, Current) VALUES ($name, $parent, $email, $emailAdditional, $current)";
 
                         using var cmd = new SqliteCommand(insertSql, connection);
                         cmd.Parameters.AddWithValue("$name", row["Name"]);
                         cmd.Parameters.AddWithValue("$parent", row["Parent"]);
                         cmd.Parameters.AddWithValue("$email", row["Email"]);
+                        cmd.Parameters.AddWithValue("$emailAdditional", row["EmailAdditional"]);
                         cmd.Parameters.AddWithValue("$current", row["Current"]);
 
                         cmd.ExecuteNonQuery();

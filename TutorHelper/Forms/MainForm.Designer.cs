@@ -150,7 +150,7 @@
             buttonSendInvoices.Name = "buttonSendInvoices";
             buttonSendInvoices.Size = new Size(186, 50);
             buttonSendInvoices.TabIndex = 3;
-            buttonSendInvoices.Text = "Send Invoices";
+            buttonSendInvoices.Text = "Send Emails";
             buttonSendInvoices.UseVisualStyleBackColor = false;
             buttonSendInvoices.Click += buttonSendInvoices_Click;
             // 
@@ -193,7 +193,7 @@
             buttonCancelChangesLink.FlatStyle = FlatStyle.Flat;
             buttonCancelChangesLink.Font = new Font("Segoe UI", 10F);
             buttonCancelChangesLink.ForeColor = Color.Black;
-            buttonCancelChangesLink.Location = new Point(951, 17);
+            buttonCancelChangesLink.Location = new Point(1256, 17);
             buttonCancelChangesLink.Name = "buttonCancelChangesLink";
             buttonCancelChangesLink.Size = new Size(186, 50);
             buttonCancelChangesLink.TabIndex = 10;
@@ -209,7 +209,7 @@
             buttonSaveLink.FlatStyle = FlatStyle.Flat;
             buttonSaveLink.Font = new Font("Segoe UI", 10F);
             buttonSaveLink.ForeColor = Color.Black;
-            buttonSaveLink.Location = new Point(747, 17);
+            buttonSaveLink.Location = new Point(1052, 17);
             buttonSaveLink.Name = "buttonSaveLink";
             buttonSaveLink.Size = new Size(186, 50);
             buttonSaveLink.TabIndex = 9;
@@ -260,7 +260,7 @@
             dataGridViewStudLessonLink.Location = new Point(23, 97);
             dataGridViewStudLessonLink.Name = "dataGridViewStudLessonLink";
             dataGridViewStudLessonLink.RowHeadersWidth = 62;
-            dataGridViewStudLessonLink.Size = new Size(1114, 607);
+            dataGridViewStudLessonLink.Size = new Size(1419, 607);
             dataGridViewStudLessonLink.TabIndex = 1;
             dataGridViewStudLessonLink.CellContentClick += dataGridViewStudLessonLink_CellContentClick;
             dataGridViewStudLessonLink.CellFormatting += dataGridViewStudLessonLink_CellFormatting;
@@ -314,7 +314,7 @@
             buttonCancelStudentsChanges.FlatStyle = FlatStyle.Flat;
             buttonCancelStudentsChanges.Font = new Font("Segoe UI", 10F);
             buttonCancelStudentsChanges.ForeColor = Color.Black;
-            buttonCancelStudentsChanges.Location = new Point(951, 22);
+            buttonCancelStudentsChanges.Location = new Point(1256, 22);
             buttonCancelStudentsChanges.Name = "buttonCancelStudentsChanges";
             buttonCancelStudentsChanges.Size = new Size(186, 50);
             buttonCancelStudentsChanges.TabIndex = 3;
@@ -330,7 +330,7 @@
             buttonSaveStudents.FlatStyle = FlatStyle.Flat;
             buttonSaveStudents.Font = new Font("Segoe UI", 10F);
             buttonSaveStudents.ForeColor = Color.Black;
-            buttonSaveStudents.Location = new Point(747, 22);
+            buttonSaveStudents.Location = new Point(1052, 22);
             buttonSaveStudents.Name = "buttonSaveStudents";
             buttonSaveStudents.Size = new Size(186, 50);
             buttonSaveStudents.TabIndex = 2;
@@ -345,7 +345,7 @@
             dataGridViewStudents.Location = new Point(23, 98);
             dataGridViewStudents.Name = "dataGridViewStudents";
             dataGridViewStudents.RowHeadersWidth = 62;
-            dataGridViewStudents.Size = new Size(1114, 607);
+            dataGridViewStudents.Size = new Size(1419, 607);
             dataGridViewStudents.TabIndex = 0;
             // 
             // tabPageLessons
@@ -369,7 +369,7 @@
             buttonCancelLessonsChanges.FlatStyle = FlatStyle.Flat;
             buttonCancelLessonsChanges.Font = new Font("Segoe UI", 10F);
             buttonCancelLessonsChanges.ForeColor = Color.Black;
-            buttonCancelLessonsChanges.Location = new Point(944, 18);
+            buttonCancelLessonsChanges.Location = new Point(1254, 21);
             buttonCancelLessonsChanges.Name = "buttonCancelLessonsChanges";
             buttonCancelLessonsChanges.Size = new Size(186, 50);
             buttonCancelLessonsChanges.TabIndex = 5;
@@ -385,7 +385,7 @@
             buttonSaveLessons.FlatStyle = FlatStyle.Flat;
             buttonSaveLessons.Font = new Font("Segoe UI", 10F);
             buttonSaveLessons.ForeColor = Color.Black;
-            buttonSaveLessons.Location = new Point(740, 18);
+            buttonSaveLessons.Location = new Point(1050, 21);
             buttonSaveLessons.Name = "buttonSaveLessons";
             buttonSaveLessons.Size = new Size(186, 50);
             buttonSaveLessons.TabIndex = 4;
@@ -400,7 +400,7 @@
             dataGridViewLessons.Location = new Point(21, 98);
             dataGridViewLessons.Name = "dataGridViewLessons";
             dataGridViewLessons.RowHeadersWidth = 62;
-            dataGridViewLessons.Size = new Size(1114, 607);
+            dataGridViewLessons.Size = new Size(1419, 607);
             dataGridViewLessons.TabIndex = 2;
             // 
             // tabPageAllInvoices
@@ -436,7 +436,7 @@
             buttonYearReport.FlatStyle = FlatStyle.Flat;
             buttonYearReport.Font = new Font("Segoe UI", 10F);
             buttonYearReport.ForeColor = Color.Black;
-            buttonYearReport.Location = new Point(946, 70);
+            buttonYearReport.Location = new Point(1244, 70);
             buttonYearReport.Name = "buttonYearReport";
             buttonYearReport.Size = new Size(194, 49);
             buttonYearReport.TabIndex = 20;
@@ -452,7 +452,7 @@
             buttonSummaries.FlatStyle = FlatStyle.Flat;
             buttonSummaries.Font = new Font("Segoe UI", 10F);
             buttonSummaries.ForeColor = Color.Black;
-            buttonSummaries.Location = new Point(946, 14);
+            buttonSummaries.Location = new Point(1244, 14);
             buttonSummaries.Name = "buttonSummaries";
             buttonSummaries.Size = new Size(194, 49);
             buttonSummaries.TabIndex = 19;
@@ -463,7 +463,7 @@
             // radioButtonFromTo
             // 
             radioButtonFromTo.AutoSize = true;
-            radioButtonFromTo.Location = new Point(441, 77);
+            radioButtonFromTo.Location = new Point(516, 78);
             radioButtonFromTo.Name = "radioButtonFromTo";
             radioButtonFromTo.Size = new Size(21, 20);
             radioButtonFromTo.TabIndex = 18;
@@ -474,7 +474,7 @@
             // radioButtonYearMonth
             // 
             radioButtonYearMonth.AutoSize = true;
-            radioButtonYearMonth.Location = new Point(441, 24);
+            radioButtonYearMonth.Location = new Point(516, 25);
             radioButtonYearMonth.Name = "radioButtonYearMonth";
             radioButtonYearMonth.Size = new Size(21, 20);
             radioButtonYearMonth.TabIndex = 17;
@@ -485,7 +485,7 @@
             // dateTimePickerTo
             // 
             dateTimePickerTo.Format = DateTimePickerFormat.Short;
-            dateTimePickerTo.Location = new Point(795, 70);
+            dateTimePickerTo.Location = new Point(870, 71);
             dateTimePickerTo.Name = "dateTimePickerTo";
             dateTimePickerTo.Size = new Size(135, 31);
             dateTimePickerTo.TabIndex = 16;
@@ -494,7 +494,7 @@
             // dateTimePickerFrom
             // 
             dateTimePickerFrom.Format = DateTimePickerFormat.Short;
-            dateTimePickerFrom.Location = new Point(549, 70);
+            dateTimePickerFrom.Location = new Point(624, 71);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
             dateTimePickerFrom.Size = new Size(134, 31);
             dateTimePickerFrom.TabIndex = 15;
@@ -503,7 +503,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(704, 70);
+            label5.Location = new Point(779, 71);
             label5.Name = "label5";
             label5.Size = new Size(30, 25);
             label5.TabIndex = 14;
@@ -512,7 +512,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(475, 70);
+            label4.Location = new Point(550, 71);
             label4.Name = "label4";
             label4.Size = new Size(54, 25);
             label4.TabIndex = 13;
@@ -521,7 +521,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(704, 14);
+            label3.Location = new Point(779, 15);
             label3.Name = "label3";
             label3.Size = new Size(65, 25);
             label3.TabIndex = 12;
@@ -530,7 +530,7 @@
             // comboBoxMonth
             // 
             comboBoxMonth.FormattingEnabled = true;
-            comboBoxMonth.Location = new Point(795, 14);
+            comboBoxMonth.Location = new Point(870, 15);
             comboBoxMonth.Name = "comboBoxMonth";
             comboBoxMonth.Size = new Size(134, 33);
             comboBoxMonth.TabIndex = 11;
@@ -539,7 +539,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(475, 14);
+            label2.Location = new Point(550, 15);
             label2.Name = "label2";
             label2.Size = new Size(44, 25);
             label2.TabIndex = 10;
@@ -548,7 +548,7 @@
             // comboBoxYear
             // 
             comboBoxYear.FormattingEnabled = true;
-            comboBoxYear.Location = new Point(549, 14);
+            comboBoxYear.Location = new Point(624, 15);
             comboBoxYear.Name = "comboBoxYear";
             comboBoxYear.Size = new Size(134, 33);
             comboBoxYear.TabIndex = 9;
@@ -568,7 +568,7 @@
             comboBoxStudent.FormattingEnabled = true;
             comboBoxStudent.Location = new Point(114, 15);
             comboBoxStudent.Name = "comboBoxStudent";
-            comboBoxStudent.Size = new Size(308, 33);
+            comboBoxStudent.Size = new Size(347, 33);
             comboBoxStudent.TabIndex = 7;
             comboBoxStudent.SelectedIndexChanged += comboBoxStudent_SelectedIndexChanged;
             // 
@@ -582,7 +582,7 @@
             dataGridViewAllInvoices.Name = "dataGridViewAllInvoices";
             dataGridViewAllInvoices.ReadOnly = true;
             dataGridViewAllInvoices.RowHeadersWidth = 62;
-            dataGridViewAllInvoices.Size = new Size(1121, 582);
+            dataGridViewAllInvoices.Size = new Size(1419, 582);
             dataGridViewAllInvoices.TabIndex = 6;
             dataGridViewAllInvoices.DataBindingComplete += dataGridViewAllInvoices_DataBindingComplete;
             // 
