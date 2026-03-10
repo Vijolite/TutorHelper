@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using System.Windows.Forms;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace TutorHelper_Tests.Forms
 {
@@ -9,6 +11,7 @@ namespace TutorHelper_Tests.Forms
         public static IEnumerable<object[]> GetTestData()
         {
             DateTime dt = DateTime.Now;
+            string error = string.Empty;
 
             DataTable table = new DataTable();
             table.Columns.Add("Name", typeof(string));
@@ -34,6 +37,7 @@ namespace TutorHelper_Tests.Forms
                 new List<string> { "LessonDate" },
                 new List<string> { "Age" },
                 new List<string> { "EmailAdditional", "EmailAdditional" },
+                error,
                 true
             };
 
@@ -46,6 +50,8 @@ namespace TutorHelper_Tests.Forms
 
             table.Rows.Add(row2);
 
+            error += $"Missed values in columns: Email {Environment.NewLine}Wrong format values in columns: Age {Environment.NewLine}";
+
             yield return new object[]
             {
                 row2,
@@ -54,6 +60,7 @@ namespace TutorHelper_Tests.Forms
                 new List<string> { "LessonDate" },
                 new List<string> { "Age" },
                 new List<string> { "EmailAdditional", "EmailAdditional" },
+                error,
                 false
             };
 
@@ -63,7 +70,7 @@ namespace TutorHelper_Tests.Forms
         [Theory]
         [MemberData(nameof(GetTestData))]
         public void ValidationPassedDataRow_ReturnsExpectedResult(DataRow row, List<string> columnNamesEssentual, List<string> columnNamesAdditional,
-            List<string> columnWithDates, List<string> columnWithNumbers, List<string> columnWithEmails, bool expectedResult)
+            List<string> columnWithDates, List<string> columnWithNumbers, List<string> columnWithEmails, string expectedError, bool expectedResult)
         {
             // Arrange
             string errorMessage;
@@ -74,6 +81,7 @@ namespace TutorHelper_Tests.Forms
 
             // Assert
             Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedError.Trim(), errorMessage.Trim());
 
         }
 
