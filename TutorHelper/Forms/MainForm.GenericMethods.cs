@@ -121,21 +121,24 @@ namespace TutorHelper.Forms
             return string.Join(", ", columnNames.Select(col => row[col]?.ToString() ?? string.Empty));
         }
 
-        bool ValidationPassedDataRow(DataRow row, List<string> columnNames, List<string> columnWithDates, List<string> columnWithNumbers, List<string> columnWithEmails, out string errorMessage)
+        public static bool ValidationPassedDataRow(DataRow row, List<string> columnNamesEssentual, List<string> columnNamesAdditional,  
+            List<string> columnWithDates, List<string> columnWithNumbers, List<string> columnWithEmails, out string errorMessage)
         {
             errorMessage = string.Empty;
             string emptyValues = "";
             string wrongFormatValues = "";
             bool result = true;
+            var columnNames = columnNamesEssentual.Union(columnNamesAdditional);
+
             foreach (var colName in columnNames)
             {
                 var data = row[colName];
-                if (data?.ToString() == string.Empty)
+                if (data?.ToString() == string.Empty && columnNamesEssentual.Contains(colName))
                 {
                     emptyValues += (colName + " ");
                     result = false;
                 }
-                else
+                else if (!string.IsNullOrEmpty(data?.ToString()))
                 {
                     if (columnWithDates.Contains(colName))
                     {

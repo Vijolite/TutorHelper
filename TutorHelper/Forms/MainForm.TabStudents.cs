@@ -63,17 +63,10 @@ namespace TutorHelper.Forms
                         continue;
 
                     string errorMessage;
-                    if (!ValidationPassedDataRow(row, new List<string> { "Name", "Parent", "Email" }, new List<string> { }, new List<string> { }, new List<string> { "Email"}, out errorMessage))
+                    if (!ValidationPassedDataRow(row, new List<string> { "Name", "Parent", "Email" }, new List<string> { "EmailAdditional" },
+                        new List<string> { }, new List<string> { }, new List<string> { "Email", "EmailAdditional" }, out errorMessage))
                     {
                         MessageBox.Show($"Errors in line {DataRowToString(row, new[] { "Name", "Parent", "Email" })}{Environment.NewLine}{errorMessage}",
-                                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        continue;
-                    }
-                    // Separate check for additional email as it should be checked only if present
-                    string additionalEmail = row["EmailAdditional"].ToString();
-                    if (!string.IsNullOrEmpty(additionalEmail) && !IsValidEmail(additionalEmail))
-                    {
-                        MessageBox.Show($"Errors in line {DataRowToString(row, new[] { "Name", "Parent", "Email" })}{Environment.NewLine}Wrong format for additional email!",
                                         "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         continue;
                     }

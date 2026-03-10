@@ -62,7 +62,8 @@ namespace TutorHelper.Forms
                         continue;
 
                     string errorMessage;
-                    if (!ValidationPassedDataRow(row, new List<string> { "Name" }, new List<string> { }, new List<string> { }, new List<string> { }, out errorMessage))
+                    if (!ValidationPassedDataRow(row, new List<string> { "Name" }, 
+                        new List<string> { }, new List<string> { }, new List<string> { }, new List<string> { }, out errorMessage))
                     {
                         MessageBox.Show($"Errors in line {DataRowToString(row, new[] { "Name" })}{Environment.NewLine}{errorMessage}",
                                         "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);

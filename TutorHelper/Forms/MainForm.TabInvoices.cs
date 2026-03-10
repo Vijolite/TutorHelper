@@ -227,7 +227,7 @@ namespace TutorHelper.Forms
                     string errorMessage;
 
                     if (!ValidationPassedDataRow(row, new List<string> { "Student", "Comment", "LessonDate", "LessonTime", "InvoiceDate", "EmailSubject" },
-                    new List<string> { "LessonDate", "InvoiceDate" }, new List<string> { }, new List<string> { }, out errorMessage))
+                    new List<string> { "LessonDate", "InvoiceDate" }, new List<string> { }, new List<string> { }, new List<string> { }, out errorMessage))
                     {
                         MessageBox.Show($"Errors in line {DataRowToString(row, new[] { "Student", "Comment", "LessonDate", "LessonTime", "InvoiceDate", "EmailSubject" })}{Environment.NewLine}{errorMessage}",
                                         "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
