@@ -220,6 +220,7 @@ namespace TutorHelper.Forms
             if (result == DialogResult.Yes)
             {
                 var changesPerformed = false;
+                var zoomInvitesSent = false;
                 Cursor.Current = Cursors.WaitCursor;
                 foreach (var row in rowsForSendingInvoices)
                 {
@@ -297,13 +298,17 @@ namespace TutorHelper.Forms
                             {
                                 EmailHelper.SendZoomInvite(row["EmailAdditional"].ToString(), row["EmailAdditional"].ToString(), row["EmailSubject"].ToString(), row["ZoomInviteText"].ToString());
                             }
+                            zoomInvitesSent = true;
                         }
                     }
                 }
-                Cursor.Current = Cursors.Default;
-                if (changesPerformed)
+                Cursor.Current = Cursors.Default;               
+                if (changesPerformed || zoomInvitesSent)
                 {
-                    MessageBox.Show("Changes have been saved successfully.", "Save Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string infoMessage = "";
+                    if (changesPerformed) infoMessage += "Changes have been saved successfully. Invoices are sent.";
+                    if (zoomInvitesSent) infoMessage += (infoMessage=="" ? "" : $"{ Environment.NewLine}" + "Zoom invitations are sent.");
+                    MessageBox.Show(infoMessage, "Send Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 LoadDataIntoGridInvoices();
                 LoadDataIntoGridInvoicesLastMonth();
