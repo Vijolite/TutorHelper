@@ -307,7 +307,7 @@ namespace TutorHelper.Forms
                 {
                     string infoMessage = "";
                     if (changesPerformed) infoMessage += "Changes have been saved successfully. Invoices are sent.";
-                    if (zoomInvitesSent) infoMessage += (infoMessage=="" ? "" : $"{ Environment.NewLine}" + "Zoom invitations are sent.");
+                    if (zoomInvitesSent) infoMessage += (infoMessage=="" ? "" : $"{ Environment.NewLine}") + "Zoom invitations are sent.";
                     MessageBox.Show(infoMessage, "Send Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 LoadDataIntoGridInvoices();
