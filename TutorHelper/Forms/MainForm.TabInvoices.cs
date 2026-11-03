@@ -198,6 +198,9 @@ namespace TutorHelper.Forms
 
         private void SaveChangesAndSendInvoicesOrZoomInvitations()
         {
+            const string payBefore = "before the lesson";
+            const string payAfter = "on the day of the lesson or the next day";
+
             // Step 1: Prepare a list of rows to process
             var rowsForSendingInvoices = tableInvoices.AsEnumerable()
                 .Where(row => row["Invoice"] is bool isSelectedInvoice && isSelectedInvoice 
@@ -270,6 +273,7 @@ namespace TutorHelper.Forms
                             { "{price}", $"£{row["Price"].ToString()}" },
                             { "{lessonDate}", ToDateFormat(row["LessonDate"],"dd-MM-yyyy","dd/MM/yyyy") },
                             { "{invoiceDate}", ToDateFormat(row["InvoiceDate"],"dd-MM-yyyy","dd/MM/yyyy") },
+                            { "{whenToPay}", isZoom ? payBefore : payAfter },
                         };
 
                             string templateFile = templatePath + "invoiceTemplate.docx";
